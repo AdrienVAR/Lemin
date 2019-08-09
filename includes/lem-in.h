@@ -15,19 +15,29 @@
 
 # include "./libft/libft.h"
 
+# define NB_ROOM 10
 
 typedef struct	s_graph
 {
 	struct s_room 	*room[NB_ROOM];
-	int				value;
 }				t_graph;
 
 typedef	struct s_room
 {
-	int		room_id;
-	struct s_room *next;
+	int				room_id;
+	int				value;
+	struct s_connexion	*next_con;
 }				t_room;
 
+typedef struct s_connexion
+{
+	int room_id;
+	struct s_connexion *next_con;
+}	t_connexion;
+
+
 void	error_message(void);
+void    is_visited(t_graph *graph, int id_visited_room);
+int		was_visited(t_graph *graph, int id_visited_room);
 
 #endif
