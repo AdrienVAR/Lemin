@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/09 13:57:50 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:06:50 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef	struct s_connex
 {
 	int			room_id;
 	struct		s_connex *next;
+	int			value;
 }				t_connex;
 
 typedef struct			s_graph
@@ -41,6 +42,7 @@ typedef struct	s_room
 	int		name_len;
 	int 	id;
 	struct	s_room *next;
+	int		parent_id;
 	int		start;
 	int		end;
 	int 	visited;
@@ -51,7 +53,6 @@ typedef struct s_anthill
 	int			nb_ant;
 	int			nb_room;
 	t_room		*l_room;
-	t_room		*room;
 	t_room		*tab_room;
 	t_graph		*graph;
 }				t_anthill;
@@ -84,7 +85,7 @@ t_room		*init_room(void);
 t_room		*new_room(char *name);
 int			add_room(t_anthill *anthill, char *name, int cmd);
 int			is_room(char *line);
-void		remove_room(t_room **l_room);
+int			create_tab_room(t_anthill *anthill);
 
 /*
 ***********************************EDGE****************************************

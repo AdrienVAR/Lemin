@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:08:54 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 10:49:22 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:07:53 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_room			*init_room(void)
 t_room			*new_room(char *name)
 {
 	t_room	*room;
-	static int	i = 0;
+	static int	i = -1;
 
 	i++;
 	room = (t_room*)malloc(sizeof(t_room));
@@ -54,10 +54,9 @@ int				add_room(t_anthill *anthill, char *name, int cmd)
 		room->start = 1;
 	else if (cmd == 2)
 		room->end = 1;
-	while (actual->next)
-		actual = actual->next;
-	actual->next = room;
-	anthill->nb_room = room->id;
+	room->next = actual;
+	anthill->l_room = room;
+	anthill->nb_room = room->id + 1;
 	return (1);
 }
 
@@ -79,3 +78,22 @@ int				is_room(char *str)
 	return (1);
 }
 
+
+int		create_tab_room(t_anthill *anthill)
+{
+	int id_room;
+	t_room *actual;
+
+	anthill->tab_room = (t_room*)malloc(sizeof(t_room) * anthill->nb_room);
+	if (!anthill->tab_room)
+		return (0);
+	id_room = anthill->nb_room;
+	actual = anthill->l_room;
+	while (actual)
+	{
+		id_room--;
+		anthill->tab_room[id_room] = *actual;
+		actual = actual->next;
+	}
+	return (1);
+}
