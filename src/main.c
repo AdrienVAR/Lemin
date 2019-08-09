@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 16:01:09 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/09 11:16:56 by avanhers         ###   ########.fr       */
+/*   Created: 2019/07/31 14:41:23 by advardon          #+#    #+#             */
+/*   Updated: 2019/08/09 11:25:19 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/lem-in.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int main(int argc,char **argv)
 {
-	if (n == 0)
-		return (0);
-	while (n > 0)
-	{
-		if (*s1 != *s2)
-		{
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		}
-		if (*s1 == '\0' && *s2 == '\0')
-			return (0);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (0);
+	argc = 2;
+	lem_in(argv[1]);
+    return (0);
 }

@@ -4,9 +4,13 @@ FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 SRC_DIR = src/
 LIB_DIR = includes/libft/
 
-SRC_FILES = main.c \
-			print_utils.c \
-			bfs_utils.c
+SRC_FILES = main.c			\
+			print_utils.c	\
+			lem_in.c		\
+			room.c			\
+			edge.c			\
+			anthill.c		\
+			graph.c	
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
