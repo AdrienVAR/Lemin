@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/09 14:25:00 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:06:50 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "./libft/libft.h"
 
+# define NB_ROOM 10
 typedef	struct s_connex
 {
 	int			room_id;
@@ -54,7 +55,10 @@ typedef struct s_anthill
 	t_graph		*graph;
 }				t_anthill;
 
+
 void	error_message(void);
+void    is_visited(t_graph *graph, int id_visited_room);
+int		was_visited(t_graph *graph, int id_visited_room);
 
 
 /*
@@ -79,7 +83,7 @@ t_room		*init_room(void);
 t_room		*new_room(char *name);
 int			add_room(t_anthill *anthill, char *name, int cmd);
 int			is_room(char *line);
-void		remove_room(t_room **l_room);
+int			create_tab_room(t_anthill *anthill);
 
 /*
 ***********************************EDGE****************************************

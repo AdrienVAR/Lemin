@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 11:51:03 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 14:21:14 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:08:18 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill)
 		get_next_line(fd, line);
 		last_cmd = cmd; 
 	}
-	anthill->l_room = anthill->l_room->next;
 	return (1);
 }
 
@@ -103,6 +102,7 @@ void	read_and_parse(int fd, t_anthill *anthill)
 	if(get_next_line(fd, &line) < 0)
 		error_message();
 	read_and_parse_room(fd, &line, anthill);
+	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill);
 	print_graph(anthill->graph);
