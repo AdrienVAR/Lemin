@@ -27,7 +27,7 @@ void    update_queue(int *que_in, int *que_out)
     init_queue(que_out);
 }
 
-int bfs(t_graph *graph, t_room *start, t_room *end)
+int bfs(t_anthill *anthill)
 {
     int que_in[NB_ROOM];
     int que_out[NB_ROOM];
@@ -35,30 +35,31 @@ int bfs(t_graph *graph, t_room *start, t_room *end)
     int room_que_in;
     int end_room;
     int end_bfs;
+    int graph = anthill->graph;
 
-    end_room = end->room_id;
+    end_room = end_id(anthill);
     init_queue(que_in);
     init_queue(que_out);
     room_que_in = 1;
     room_que_out = 1;
-    que_in[room_que_in] = start->room_id;
-    is_visited(graph, start->room_id);
+    que_in[room_que_in] = start_id(anthill);
+   // is_visited(graph, start->room_id);
     end_bfs = 0;
     ft_putnbr(que_in[1]);//
     while(end_bfs == 0)
     {
         while(que_in[room_que_in] && end_bfs == 0)
         {
-            while(graph->room[que_in[room_que_in]]->next_con)
+            while(graph->array[que_in[room_que_in]]->next)
             {
-                if(!was_visited(graph, graph->room[que_in[room_que_in]]->next_con->room_id))
-                {
-                    que_out[room_que_out] = graph->room[que_in[room_que_in]]->next_con->room_id;
-                    is_visited(graph, que_out[room_que_out]);
-                }
-                else
-                    room_que_out--;              
-                graph->room[que_in[room_que_in]]->next_con = graph->room[que_in[room_que_in]]->next_con->next_con;
+              //  if(!was_visited(graph, graph->array[que_in[room_que_in]]->next->room_id))
+              //  {
+                    que_out[room_que_out] = graph->array[que_in[room_que_in]]->next->room_id;
+              //      is_visited(graph, que_out[room_que_out]);
+              //  }
+              //  else
+              //      room_que_out--;              
+                graph->array[que_in[room_que_in]]->next = graph->array[que_in[room_que_in]]->next->next;
                 if (que_out[room_que_out] == end_room)
                 {
                     ft_putnbr(que_out[room_que_out]); //

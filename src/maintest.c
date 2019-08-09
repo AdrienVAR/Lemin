@@ -12,6 +12,36 @@
 
 #include "../includes/lem-in.h"
 
+/*
+typedef struct s_connexion
+{
+	int room_id;
+	struct s_connexion *next_con;
+}	t_connex;
+*/
+
+/*
+** Record a value of 1 given the room had been visited
+*/
+
+void    is_visited (t_graph *graph, int id_visited_room)
+{
+    graph->room[id_visited_room]->value = 1;
+}
+
+/*
+** Return 1 if room had been visited, 0 otherwise
+*/
+
+int was_visited(t_graph *graph, int id_room)
+{
+    if (graph->room[id_room]->value == 1)
+        return (1);
+    else
+        return (0);
+}
+
+
 void init_queue(int *queue)
 {
     int room_que_out;
@@ -105,16 +135,16 @@ int main (void)
     t_room  *start;
     t_room  *end;
 
-    t_connexion con_1_2;
-    t_connexion con_1_3;
-    t_connexion con_2_5;
-    t_connexion con_2_1;
-    t_connexion con_3_4;
-    t_connexion con_3_6;
-    t_connexion con_4_7;
-    t_connexion con_5_6;
-    t_connexion con_6_8;
-    t_connexion con_7_8;
+    t_connex con_1_2;
+    t_connex con_1_3;
+    t_connex con_2_5;
+    t_connex con_2_1;
+    t_connex con_3_4;
+    t_connex con_3_6;
+    t_connex con_4_7;
+    t_connex con_5_6;
+    t_connex con_6_8;
+    t_connex con_7_8;
 
     graph.room[1] = &room1;
     graph.room[2] = &room2;

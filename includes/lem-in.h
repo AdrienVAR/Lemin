@@ -95,7 +95,22 @@ t_room			*is_known_room(char *line, t_anthill *anthill);
 t_edge			*is_edge(char *line, t_anthill *anthill);
 
 /*
-*******************************LEM_IN******************************************
+***********************************BFS****************************************
+*/
+
+int				bfs(t_anthill *anthill);
+void    		update_queue(int *que_in, int *que_out);
+void			init_queue(int *queue);
+
+/*
+********************************BFS_UTIL**************************************
+*/
+
+int				start_id(t_anthill *anthill);
+int				end_id(t_anthill *anthill);
+
+/*
+*******************************LEM_IN*****************************************
 */
 void		lem_in(char *filename);
 #endif
