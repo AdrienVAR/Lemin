@@ -8,7 +8,9 @@ SRC_FILES = main.c			\
 			print_utils.c	\
 			lem_in.c		\
 			room.c			\
-			anthill.c		
+			edge.c			\
+			anthill.c		\
+			graph.c	
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 

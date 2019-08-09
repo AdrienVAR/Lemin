@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:08:54 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/08 17:46:55 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 10:49:22 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_room			*new_room(char *name)
 		return (NULL);
 	room->next = NULL;
 	room->name = name;
+	room->name_len = ft_strlen(name);
 	room->id = i;
 	room->end = 0;
 	room->start = 0;

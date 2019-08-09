@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 11:51:03 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/08 18:20:34 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:54:35 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,59 @@ static int num_command(char *line)
 }
 
 /*
-**Read and parse the room part
+***********************Read and Parse Room*************************************
 */
-static	int	read_and_parse_room(int fd, char *line, t_anthill *anthill)
+
+static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill)
 {
 	char	**name;
 	int		last_cmd;
 	int		cmd;
 
 	last_cmd = 0;
- 	while ((cmd = num_command(line)) || is_room(line))
+ 	while ((cmd = num_command(*line)) || is_room(*line))
 	{
-		if (is_room(line))
+		if (is_room(*line))
 		{
-			name = ft_strsplit(line,' ');
+			name = ft_strsplit(*line,' ');
 			add_room(anthill, name[0], last_cmd);
 		}	
-		get_next_line(fd,&line);
+		get_next_line(fd, line);
 		last_cmd = cmd; 
 	}
-	anthill->l_room = anthill->l_room->next;;
+	anthill->l_room = anthill->l_room->next;
 	return (1);
 }
+
+/*
+***********************Read and Parse Edge*************************************
+*/
+
+void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
+{
+	t_edge	*edge;
+
+
+	while (num_command(*line) || (edge = is_edge(*line, anthill)))
+	{
+		ft_putstr(*line);
+		if (edge)
+		{
+			add_edge(anthill->graph,edge);
+			free(edge);
+		}
+		else 
+			return ;
+		ft_putstr(*line);
+		if (get_next_line(fd, line) <= 0)
+			return;
+		edge = NULL;
+	}
+}
+
+/*
+*********************Read and Parse Global*************************************
+*/
 
 void	read_and_parse(int fd, t_anthill *anthill)
 {
@@ -73,7 +104,10 @@ void	read_and_parse(int fd, t_anthill *anthill)
 
 	if(get_next_line(fd, &line) < 0)
 		error_message();
-	read_and_parse_room(fd, line, anthill);
+	read_and_parse_room(fd, &line, anthill);
+	anthill->graph = create_graph(anthill->nb_room);
+	read_and_parse_edge(fd, &line, anthill);
+	print_graph(anthill->graph);
 }
 	
 void	lem_in(char *filename)
