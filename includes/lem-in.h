@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/09 13:48:29 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:57:50 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_anthill
 	int			nb_ant;
 	int			nb_room;
 	t_room		*l_room;
+	t_room		*room;
 	t_room		*tab_room;
 	t_graph		*graph;
 }				t_anthill;

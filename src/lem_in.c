@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 11:51:03 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 13:54:35 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:59:56 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
 		}
 		else 
 			return ;
-		ft_putstr(*line);
 		if (get_next_line(fd, line) <= 0)
 			return;
 		edge = NULL;

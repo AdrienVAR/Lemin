@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 10:33:34 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 13:50:50 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:59:50 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_edge		*is_edge(char *line, t_anthill *anthill)
 		return (NULL);
 	len = room->name_len;
 	edge->src = room->id;
-	ft_putstr("is_edge");
 	if (line[len] != '-')
 		return (NULL);
 	len++;
