@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 13:54:36 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:18:55 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		print_graph(t_graph *graph)
 	int i;
 	t_connex	*connex;
 
-	i = 1;
+	i = 0;
 	while (i < graph->nb_room)
 	{
 		ft_putnbr(i);

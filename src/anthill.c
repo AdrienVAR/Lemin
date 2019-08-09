@@ -6,13 +6,30 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:33:16 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/08 16:42:17 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:16:36 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
 #include <stdio.h>
+/*
+void		free_graph(t_graph *graph)
+{
+	int i;
 
+	i = 1;
+	while (graph->array[i])
+	{	
+
+		i++;
+	}
+}
+
+void		free_anthill(t_anthill *anthill)
+{
+	free_graph(anthill->graph);
+}
+*/
 t_anthill	*init_anthill(void)
 {
 	t_anthill	*anthill;

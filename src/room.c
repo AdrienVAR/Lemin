@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:08:54 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 10:49:22 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:21:22 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_room			*init_room(void)
 t_room			*new_room(char *name)
 {
 	t_room	*room;
-	static int	i = 0;
+	static int	i = -1;
 
 	i++;
 	room = (t_room*)malloc(sizeof(t_room));
@@ -57,7 +57,7 @@ int				add_room(t_anthill *anthill, char *name, int cmd)
 	while (actual->next)
 		actual = actual->next;
 	actual->next = room;
-	anthill->nb_room = room->id;
+	anthill->nb_room = room->id + 1;
 	return (1);
 }
 

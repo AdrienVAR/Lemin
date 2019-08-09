@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 11:51:03 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 14:00:44 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:21:14 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
 
 	while (num_command(*line) || (edge = is_edge(*line, anthill)))
 	{
-		ft_putstr(*line);
 		if (edge)
 		{
 			add_edge(anthill->graph,edge);
