@@ -23,11 +23,10 @@ t_edge		*create_edge(void)
 
 
 
-
 /*
 **this function look into all room in l_room and look if a room with the same
 **name exist.
-**If the room allready exist, return his len_name
+**If the room already exists, return his len_name
 */
 
 t_room		*is_known_room(char *line, t_anthill *anthill)

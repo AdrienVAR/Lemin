@@ -10,7 +10,9 @@ SRC_FILES = main.c			\
 			room.c			\
 			edge.c			\
 			anthill.c		\
-			graph.c	
+			graph.c			\
+			bfs.c			\
+			bfs_utils.c	
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 

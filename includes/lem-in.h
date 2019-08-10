@@ -57,10 +57,20 @@ typedef struct s_anthill
 	t_graph		*graph;
 }				t_anthill;
 
+typedef struct s_queue
+{
+	int que_in[NB_ROOM];
+    int que_out[NB_ROOM];
+    int room_que_out;
+    int room_que_in;
+    int end_room;
+    int end_bfs;
+    int que_len;
+}				t_queue;
+
 
 void	error_message(void);
-void    is_visited(t_graph *graph, int id_visited_room);
-int		was_visited(t_graph *graph, int id_visited_room);
+
 
 
 /*
@@ -99,14 +109,17 @@ t_edge			*is_edge(char *line, t_anthill *anthill);
 ***********************************BFS****************************************
 */
 
-int				bfs(t_anthill *anthill);
+int				bfs(t_anthill *anthill, t_queue *q);
 void    		update_queue(int *que_in, int *que_out);
-void			init_queue(int *queue);
+void			init_room_queue(int *queue);
+void			init_queue(t_anthill *anthill, t_queue *q);
 
 /*
 ********************************BFS_UTIL**************************************
 */
 
+void    		is_visited (t_anthill *anthill, int id_visited_room, int parent_id);
+int				was_visited(t_anthill *anthill, int id_room);
 int				start_id(t_anthill *anthill);
 int				end_id(t_anthill *anthill);
 

@@ -1,16 +1,26 @@
 
-# include "./libft/libft.h"
+#include "../includes/lem-in.h"
 
-void init_queue(int *queue)
+void init_queue(t_anthill *anthill, t_queue *q)
 {
-    int room_que_out;
+    init_room_queue(q->que_in);
+    init_room_queue(q->que_out);
+    q->room_que_in = 0;
+    q->room_que_out = 0;
+    q->que_in[q->room_que_in] = start_id(anthill);
+    q->end_room = end_id(anthill);
+    q->end_bfs = 0;
+}
 
-    room_que_out = 0;
+void init_room_queue(int *queue)
+{
+    int room_que;
 
-    while (room_que_out < NB_ROOM)
+    room_que = 0;
+    while (room_que < NB_ROOM)
     {
-        queue[room_que_out] = 0;
-        room_que_out++;
+        queue[room_que] = 0;
+        room_que++;
     }
 }
 
@@ -24,57 +34,41 @@ void    update_queue(int *que_in, int *que_out)
         que_in[room_que_out] = que_out[room_que_out];
         room_que_out++;
     }
-    init_queue(que_out);
+    init_room_queue(que_out);
 }
 
-int bfs(t_anthill *anthill)
+int bfs(t_anthill *anthill, t_queue *q)
 {
-    int que_in[NB_ROOM];
-    int que_out[NB_ROOM];
-    int room_que_out;
-    int room_que_in;
-    int end_room;
-    int end_bfs;
-    int graph = anthill->graph;
-
-    end_room = end_id(anthill);
-    init_queue(que_in);
-    init_queue(que_out);
-    room_que_in = 1;
-    room_que_out = 1;
-    que_in[room_que_in] = start_id(anthill);
-   // is_visited(graph, start->room_id);
-    end_bfs = 0;
-    ft_putnbr(que_in[1]);//
-    while(end_bfs == 0)
+    init_queue(anthill, q);
+    q->que_len = 1;
+    is_visited(anthill, q->que_in[q->room_que_in], q->que_in[q->room_que_in]);
+    ft_putnbr(q->que_in[q->room_que_in]);//
+    ft_putstr(" |end layer| "); //
+    while(q->end_bfs == 0)
     {
-        while(que_in[room_que_in] && end_bfs == 0)
+        while(q->que_len && q->end_bfs == 0)
         {
-            while(graph->array[que_in[room_que_in]]->next)
+            while(anthill->graph->array[q->que_in[q->room_que_in]].next)
             {
-              //  if(!was_visited(graph, graph->array[que_in[room_que_in]]->next->room_id))
-              //  {
-                    que_out[room_que_out] = graph->array[que_in[room_que_in]]->next->room_id;
-              //      is_visited(graph, que_out[room_que_out]);
-              //  }
-              //  else
-              //      room_que_out--;              
-                graph->array[que_in[room_que_in]]->next = graph->array[que_in[room_que_in]]->next->next;
-                if (que_out[room_que_out] == end_room)
+                if(!was_visited(anthill, anthill->graph->array[q->que_in[q->room_que_in]].next->room_id))
                 {
-                    ft_putnbr(que_out[room_que_out]); //
-                    end_bfs = 1;
-                    break;
+                    q->que_out[q->room_que_out] = anthill->graph->array[q->que_in[q->room_que_in]].next->room_id;
+                    is_visited(anthill, q->que_out[q->room_que_out], q->que_in[q->room_que_in]);
+                    ft_putnbr(q->que_out[q->room_que_out]); //
+                    if (q->que_out[q->room_que_out] == q->end_room)
+                        q->end_bfs = 1;
+                    q->room_que_out++;
                 }
-                ft_putnbr(que_out[room_que_out]); //
-                room_que_out++;
+                anthill->graph->array[q->que_in[q->room_que_in]].next = anthill->graph->array[q->que_in[q->room_que_in]].next->next;
             }
-            room_que_in++;
+            q->que_len--;
+            q->room_que_in++;
         }
-        update_queue(que_in, que_out);
-        room_que_out = 1;
-        room_que_in = 1;
+        ft_putstr(" |end layer| ");
+        update_queue(q->que_in, q->que_out);
+        q->que_len = q->room_que_out;
+        q->room_que_out = 0;
+        q->room_que_in = 0;
     }
-
     return (0);
 }
