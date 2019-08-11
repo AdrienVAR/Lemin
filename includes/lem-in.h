@@ -73,16 +73,11 @@ typedef struct s_bfs
     int 		que_len;
 }				t_bfs;
 
-typedef	struct s_qnode
-{
-	int id_room;
-	struct s_qnode *next;
-}				t_qnode;
 
 typedef	struct s_queue
 {
-	struct s_qnode *front;
-	struct s_qnode *rear;
+	t_room *front;
+	t_room *rear;
 }				t_queue;
 
 
@@ -126,7 +121,7 @@ t_edge			*is_edge(char *line, t_anthill *anthill);
 ***********************************BFS****************************************
 */
 
-int				bfs(t_anthill *anthill, t_bfs *q);
+int bfs(t_anthill *anthill);
 void    		update_queue(int *que_in, int *que_out);
 void			init_room_queue(int *queue);
 void			init_queue(t_anthill *anthill, t_bfs *q);
@@ -157,5 +152,14 @@ void		lem_in(char *filename);
 */
 
 void		error_message(void);
+
+t_queue* createqueue();
+void enqueue(t_queue *q, t_room *room);
+t_room* dequeue(t_queue *q);
+void print_queue(t_queue *q);
+
+
+
+
 
 #endif

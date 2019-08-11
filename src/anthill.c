@@ -58,8 +58,9 @@ void	print_anthill(t_anthill *anthill)
 	i = 0;
 	while (i < anthill->nb_room)
 	{
-		printf("indice : %d  room_name :%s\n",
-				i, (anthill->tab_room)[i].name);
+		printf("indice : %d  room_name :%s, parent_id : %d\n",
+				i, (anthill->tab_room)[i].name, (anthill->tab_room)[i].parent_id);
 		i++;
 	}
+	ft_putnbr(anthill->id_start);
 }

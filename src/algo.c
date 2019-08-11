@@ -12,22 +12,53 @@
 
 #include "../includes/lem-in.h"
 
-/*
-void    add_flow(t_anthill *anthill, t_bfs *q)
+void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 {
-    int id;
+  t_connex *actual;
 
-    while (id != q->start_room)
+  actual = anthill->graph->array[id].next;
+
+    while(actual)
     {
-
-
+      if (actual->room_id == parent_id)
+      {
+        actual->value = -1;
+        break;
+      }
+      actual = actual->next;
+    } 
+  actual = anthill->graph->array[parent_id].next;
+  while(actual)
+  {
+    if (actual->room_id == id)
+    {
+      actual->value = 1;
+      break;
     }
+    actual = actual->next;
+  }
+}
 
+void    add_flow(t_anthill *anthill)
+{
+  t_room *room;
+  int     id;
+  int     parent_id;
+
+  room = &anthill->tab_room[anthill->id_end];
+  id = room->id;
+  while (id != anthill->id_start)
+  {
+    room = &anthill->tab_room[id];
+    parent_id = room->parent_id;
+    actualize_connex(anthill, id, parent_id);
+    id = parent_id;
+  }
 
 
 //remonte end to start et ajoute 1/-1 dans connex->value
 
-}*/
+}
 
 /*
 ** Entry point of the algo.
@@ -36,8 +67,11 @@ void    add_flow(t_anthill *anthill, t_bfs *q)
 
 void    algo(t_anthill *anthill)
 {
-	t_bfs		q;
+	//t_bfs		q;
 
-    bfs(anthill, &q);
-  //  add_flow(anthill, q);
+    bfs(anthill);
+    print_anthill(anthill);
+    add_flow(anthill);
+    print_graph(anthill->graph);
+
 }

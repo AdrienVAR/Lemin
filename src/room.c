@@ -37,8 +37,11 @@ t_room			*new_room(char *name)
 	room->name = name;
 	room->name_len = ft_strlen(name);
 	room->id = i;
+	room->parent_id = -1;
 	room->end = 0;
 	room->start = 0;
+	room->visited = 0;
+	
 	return (room);
 }
 
@@ -51,9 +54,15 @@ int				add_room(t_anthill *anthill, char *name, int cmd)
 		return (0);
 	actual = anthill->l_room;
 	if (cmd == 1 )
+	{
 		room->start = 1;
+		anthill->id_start = room->id;
+	}
 	else if (cmd == 2)
+	{
 		room->end = 1;
+		anthill->id_end = room->id;
+	}
 	room->next = actual;
 	anthill->l_room = room;
 	anthill->nb_room = room->id + 1;
@@ -83,6 +92,7 @@ int		create_tab_room(t_anthill *anthill)
 {
 	int id_room;
 	t_room *actual;
+	t_room *tmp;
 
 	anthill->tab_room = (t_room*)malloc(sizeof(t_room) * anthill->nb_room);
 	if (!anthill->tab_room)
@@ -91,9 +101,11 @@ int		create_tab_room(t_anthill *anthill)
 	actual = anthill->l_room;
 	while (actual)
 	{
+		tmp = actual;
 		id_room--;
 		anthill->tab_room[id_room] = *actual;
 		actual = actual->next;
+		tmp = NULL;
 	}
 	return (1);
 }

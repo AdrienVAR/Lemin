@@ -54,7 +54,7 @@ void    t_adj_list(t_anthill *anthill, t_bfs *q)
 /*
 ** Breadth first search traversal from room start to end.
 */
-
+/*
 int bfs(t_anthill *anthill, t_bfs *q)
 {
     init_queue(anthill, q);
@@ -80,4 +80,43 @@ int bfs(t_anthill *anthill, t_bfs *q)
         q->connex = anthill->graph->array[q->que_in[q->room_que_in]].next;
     }
     return (0);
+}*/
+int    process_neighbours(t_anthill *anthill, t_room *actual, t_queue *q, int round)
+{
+    t_connex    *neighbour;
+
+    neighbour = anthill->graph->array[actual->id].next;
+    while(neighbour)
+    { 
+        if (anthill->tab_room[neighbour->room_id].visited != round)
+        {
+            anthill->tab_room[neighbour->room_id].visited = round;
+            anthill->tab_room[neighbour->room_id].parent_id = actual->id;
+            enqueue(q, &anthill->tab_room[neighbour->room_id]); 
+            if (neighbour->room_id == anthill->id_end) 
+                return 1; 
+        }
+        neighbour = neighbour->next;
+    }
+    return (0);
+}
+
+int bfs(t_anthill *anthill)
+{
+    t_queue     *q;
+    t_room      *actual;
+    
+    static int     round = 0;
+
+    round++;
+    q = createqueue();
+    enqueue(q, &anthill->tab_room[anthill->id_start]);
+    anthill->tab_room[anthill->id_start].visited++;
+    while(q->front != NULL)
+    {
+        actual = dequeue(q); 
+        if(process_neighbours(anthill, actual, q, round))
+            return (1);
+    }
+return(0);
 }

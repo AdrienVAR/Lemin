@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
-
+#include <stdio.h>
 
 t_connex	*new_connex(int dst)
 {
@@ -20,6 +20,7 @@ t_connex	*new_connex(int dst)
 	if (!(connex = (t_connex*)malloc(sizeof(t_connex))))
 		return (NULL);
 	connex->room_id = dst;
+	connex->value = 0;
 	connex->next = NULL;
 	return (connex);
 }
@@ -71,6 +72,8 @@ void		print_graph(t_graph *graph)
 		while (connex)
 		{
 			ft_putnbr(connex->room_id);
+			ft_putstr(" : ");
+			ft_putnbr(connex->value);
 			ft_putstr("-->");
 			connex = connex->next;
 		}
