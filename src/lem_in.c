@@ -78,8 +78,6 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
 			add_edge(anthill->graph,edge);
 			free(edge);
 		}
-		else 
-			return ;
 		if (get_next_line(fd, line) <= 0)
 			return;
 		edge = NULL;

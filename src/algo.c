@@ -12,13 +12,22 @@
 
 #include "../includes/lem-in.h"
 
-
+/*
 void    add_flow(t_anthill *anthill, t_bfs *q)
 {
+    int id;
 
-//remonte end to start et ajoute 1/-1
+    while (id != q->start_room)
+    {
 
-}
+
+    }
+
+
+
+//remonte end to start et ajoute 1/-1 dans connex->value
+
+}*/
 
 /*
 ** Entry point of the algo.
@@ -30,4 +39,5 @@ void    algo(t_anthill *anthill)
 	t_bfs		q;
 
     bfs(anthill, &q);
+  //  add_flow(anthill, q);
 }

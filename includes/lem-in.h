@@ -55,6 +55,8 @@ typedef struct s_anthill
 	t_room		*l_room;
 	t_room		*tab_room;
 	t_graph		*graph;
+	int 		id_start;
+	int 		id_end;
 }				t_anthill;
 
 typedef struct s_bfs
@@ -65,10 +67,27 @@ typedef struct s_bfs
     int 		que_out[NB_ROOM];
     int 		room_que_out;
     int 		room_que_in;
+	int			start_room;
     int 		end_room;
     int 		end_bfs;
     int 		que_len;
 }				t_bfs;
+
+typedef	struct s_qnode
+{
+	int id_room;
+	struct s_qnode *next;
+}				t_qnode;
+
+typedef	struct s_queue
+{
+	struct s_qnode *front;
+	struct s_qnode *rear;
+}				t_queue;
+
+
+
+
 
 
 /*

@@ -25,7 +25,8 @@ void init_queue(t_anthill *anthill, t_bfs *q)
     init_room_queue(q->que_out);
     q->room_que_in = 0;
     q->room_que_out = 0;
-    q->que_in[q->room_que_in] = start_id(anthill);
+    q->start_room = start_id(anthill);
+    q->que_in[q->room_que_in] = q->start_room;
     q->end_room = end_id(anthill);
     q->end_bfs = 0;
 }
