@@ -1,5 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/11 11:53:42 by advardon          #+#    #+#             */
+/*   Updated: 2019/08/11 11:53:47 by advardon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/lem-in.h"
+
+/*
+** Initialize the values in the bfs struct
+*/
+
+void init_queue(t_anthill *anthill, t_bfs *q)
+{
+    q->connex = NULL;
+    q->bfs_round = 0;
+    q->que_len = 1;
+    init_room_queue(q->que_in);
+    init_room_queue(q->que_out);
+    q->room_que_in = 0;
+    q->room_que_out = 0;
+    q->que_in[q->room_que_in] = start_id(anthill);
+    q->end_room = end_id(anthill);
+    q->end_bfs = 0;
+}
 
 /*
 ** Record a value of 1 given the room had been visited

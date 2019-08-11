@@ -11,6 +11,7 @@ SRC_FILES = main.c			\
 			edge.c			\
 			anthill.c		\
 			graph.c			\
+			algo.c			\
 			bfs.c			\
 			bfs_utils.c	
 

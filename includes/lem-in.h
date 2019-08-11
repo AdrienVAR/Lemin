@@ -57,20 +57,18 @@ typedef struct s_anthill
 	t_graph		*graph;
 }				t_anthill;
 
-typedef struct s_queue
+typedef struct s_bfs
 {
-	int que_in[NB_ROOM];
-    int que_out[NB_ROOM];
-    int room_que_out;
-    int room_que_in;
-    int end_room;
-    int end_bfs;
-    int que_len;
-}				t_queue;
-
-
-void	error_message(void);
-
+	t_connex	*connex;
+	int			bfs_round;
+	int 		que_in[NB_ROOM];
+    int 		que_out[NB_ROOM];
+    int 		room_que_out;
+    int 		room_que_in;
+    int 		end_room;
+    int 		end_bfs;
+    int 		que_len;
+}				t_bfs;
 
 
 /*
@@ -109,10 +107,16 @@ t_edge			*is_edge(char *line, t_anthill *anthill);
 ***********************************BFS****************************************
 */
 
-int				bfs(t_anthill *anthill, t_queue *q);
+int				bfs(t_anthill *anthill, t_bfs *q);
 void    		update_queue(int *que_in, int *que_out);
 void			init_room_queue(int *queue);
-void			init_queue(t_anthill *anthill, t_queue *q);
+void			init_queue(t_anthill *anthill, t_bfs *q);
+
+/*
+***********************************ALGO**************************************
+*/
+
+void			algo(t_anthill *anthill);
 
 /*
 ********************************BFS_UTIL**************************************
@@ -124,7 +128,15 @@ int				start_id(t_anthill *anthill);
 int				end_id(t_anthill *anthill);
 
 /*
-*******************************LEM_IN*****************************************
+**********************************LEM_IN***************************************
 */
 void		lem_in(char *filename);
+
+
+/*
+***********************************PRINT_UTILS**********************************
+*/
+
+void		error_message(void);
+
 #endif

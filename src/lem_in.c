@@ -105,19 +105,18 @@ void	read_and_parse(int fd, t_anthill *anthill)
 	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill);
-//	print_graph(anthill->graph);
+	print_graph(anthill->graph);
 }
 	
 void	lem_in(char *filename)
 {
 	int	fd;
 	t_anthill	*anthill;
-	t_queue		q;
 
 	anthill = init_anthill();	
 	if (!(fd = open_file(filename)))
 		error_message();
 	read_and_parse(fd, anthill);
 	print_anthill(anthill);	
-	bfs(anthill, &q);
+	algo(anthill);
 }
