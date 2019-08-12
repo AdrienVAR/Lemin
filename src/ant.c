@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 14:24:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/12 15:57:58 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:01:09 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)
 {
 	int	id_room;
-
-	id_room = tab_ant[id_ant -1 ].connex->room_id;
+ 	(void)anthill;
+	id_room = tab_ant[id_ant - 1 ].connex->room_id;
 	ft_putchar('L');
 	ft_putnbr(id_ant);
 	ft_putchar('-');
 	ft_putstr(anthill->tab_room[id_room].name);
+	ft_putnbr(id_room);
 	ft_putchar(' ');
 }
