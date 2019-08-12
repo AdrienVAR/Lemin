@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/09 16:06:50 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 13:41:12 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void		print_anthill(t_anthill *anthill);
 t_connex	*new_connex(int dst);
 t_graph		*create_graph(int nb_room);
 int			add_edge(t_graph *graph, t_edge *edge);
+int			add_edge_side(t_graph *graph, int src, int dst);
 void		print_graph(t_graph *graph);
 /*
 **********************************ROOM*****************************************

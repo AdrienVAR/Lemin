@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/12 09:40:45 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 13:44:18 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,47 @@ void    add_flow(t_anthill *anthill)
 ** Entry point of the algo.
 ** Implementation of a simplified Edmonds-Karp algorithm.
 */
+void	fill_path(t_anthill *anthill,t_graph *path,int nb_chemin)
+{
+	int i;
+	t_connex *neighbour;
+	
+	i = 0;
+	while (i < nb_chemin)
+	{
+		neighbour = anthill->graph->array[anthill->id_start].next;
+		
+		while (neighbour)
+		{
+			if (neighbour->value == 1 && neighbour->room_id == anthill->id_end)
+				break;
+			else if (neighbour->value == 1)
+			{
+				add_edge_side(path, i ,neighbour->room_id);
+				neighbour->value = -2;
+				neighbour = anthill->graph->array[neighbour->room_id].next;
+			}
+			else
+				neighbour = neighbour->next;
+		}
+		i++;
+	}
+}
 
 void    algo(t_anthill *anthill)
 {
-	//t_bfs		q;
-
-	while (bfs(anthill))
+	int	nb_chemin;
+	t_graph		*path;
+	nb_chemin = 0;
+	
+	while (anthill->nb_ant > nb_chemin  && bfs(anthill))
 	{
     	print_anthill(anthill);
     	add_flow(anthill);
     	print_graph(anthill->graph);
+		nb_chemin++;
 	}
+	path = create_graph(nb_chemin);
+	fill_path(anthill, path, nb_chemin);
+	print_graph(path);
 }
