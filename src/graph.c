@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 14:49:33 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 09:28:10 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ void		print_graph(t_graph *graph)
 	while (i < graph->nb_room)
 	{
 		ft_putnbr(i);
-		ft_putstr("->");
+		ft_putstr("->(");
 		connex = graph->array[i].next;
 		while (connex)
 		{
+
 			ft_putnbr(connex->room_id);
 			ft_putstr(" : ");
 			ft_putnbr(connex->value);
-			ft_putstr("-->");
+			ft_putstr(")  -->   (");
 			connex = connex->next;
 		}
 		ft_putstr("NULL\n");

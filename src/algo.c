@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/11 11:51:37 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/12 09:40:45 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 
   actual = anthill->graph->array[id].next;
 
-    while(actual)
+  while(actual)
     {
       if (actual->room_id == parent_id)
       {
-        actual->value = -1;
+        actual->value--;
         break;
       }
       actual = actual->next;
@@ -32,7 +32,7 @@ void  actualize_connex(t_anthill *anthill, int id, int parent_id)
   {
     if (actual->room_id == id)
     {
-      actual->value = 1;
+      actual->value++;
       break;
     }
     actual = actual->next;
@@ -69,9 +69,10 @@ void    algo(t_anthill *anthill)
 {
 	//t_bfs		q;
 
-    bfs(anthill);
-    print_anthill(anthill);
-    add_flow(anthill);
-    print_graph(anthill->graph);
-
+	while (bfs(anthill))
+	{
+    	print_anthill(anthill);
+    	add_flow(anthill);
+    	print_graph(anthill->graph);
+	}
 }
