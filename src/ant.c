@@ -24,6 +24,7 @@ void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path)
 	tab_ant[i - 1].is_in = 1;
 }
 
+/*
 void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 {
 	int i;
@@ -38,7 +39,7 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 		ft_putchar('\n');
 		i++;
 	}
-}
+}*/
 
 
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)

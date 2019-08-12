@@ -1,6 +1,6 @@
 NAME = lem-in
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror
 SRC_DIR = src/
 LIB_DIR = includes/libft/
 

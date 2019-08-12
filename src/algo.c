@@ -111,7 +111,6 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 		if (tab_ant[i].is_in)
 		{
 			move_ant(anthill, &tab_ant[i]);
-			ft_putnbr(i);
 			print_ant(anthill,tab_ant, i + 1 );
 		}
 		i++;
@@ -149,13 +148,13 @@ void    algo(t_anthill *anthill)
 
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
-		print_anthill(anthill);
+		//print_anthill(anthill);
 		add_flow(anthill);
-		print_graph(anthill->graph);
+		//print_graph(anthill->graph);
 		anthill->nb_path++;
 	}
 	path = create_graph(anthill->nb_path);
 	fill_path(anthill, path, anthill->nb_path);
-	print_graph(path);
+	//print_graph(path);
 	print_sol(anthill,path);
 }
