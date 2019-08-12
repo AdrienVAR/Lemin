@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:33:16 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/12 09:30:33 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 15:08:19 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_anthill	*init_anthill(void)
 		return (NULL);
 	anthill->nb_ant = 0;
 	anthill->nb_room = 0;
+	anthill->nb_in = 0;
+	anthill->nb_end = 0;
+	anthill->nb_path = 0;
 	anthill->l_room = NULL;
 	return (anthill);
 }

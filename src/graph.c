@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/12 13:50:22 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 13:56:52 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ int			add_edge_side(t_graph *graph, int src, int dst)
 	t_connex 	*actual;
 
 	n_connex = new_connex(dst);
-	ft_putstr("YP");
 	actual = graph->array[src].next;
-	ft_putstr("YppppppppppP");
-	while ( actual && actual->next)
+	if (!actual)
+	{
+		graph->array[src].next = n_connex;
+		return 1;
+	}
+	while (actual && actual->next)
 		actual = actual->next;
 	actual->next = n_connex;
-
 	return (1);
 }
 

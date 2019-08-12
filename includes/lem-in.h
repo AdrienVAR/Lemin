@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/12 13:41:12 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 16:12:42 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_anthill
 	t_graph		*graph;
 	int 		id_start;
 	int 		id_end;
+	int 		nb_in;
+	int			nb_end;
+	int			nb_path;
 }				t_anthill;
 
 typedef struct s_bfs
@@ -80,7 +83,13 @@ typedef	struct s_queue
 	t_room *rear;
 }				t_queue;
 
-
+typedef	struct	s_ant
+{
+	int			id_ant;
+	int 		is_in;
+	t_connex	*connex;
+	int			path;
+}				t_ant;
 
 
 
@@ -122,25 +131,13 @@ t_edge			*is_edge(char *line, t_anthill *anthill);
 ***********************************BFS****************************************
 */
 
-int bfs(t_anthill *anthill);
-void    		update_queue(int *que_in, int *que_out);
-void			init_room_queue(int *queue);
-void			init_queue(t_anthill *anthill, t_bfs *q);
+int 			bfs(t_anthill *anthill);
 
 /*
 ***********************************ALGO**************************************
 */
 
 void			algo(t_anthill *anthill);
-
-/*
-********************************BFS_UTIL**************************************
-*/
-
-void    		is_visited (t_anthill *anthill, int id_visited_room, int parent_id);
-int				was_visited(t_anthill *anthill, int id_room);
-int				start_id(t_anthill *anthill);
-int				end_id(t_anthill *anthill);
 
 /*
 **********************************LEM_IN***************************************
@@ -160,7 +157,12 @@ t_room* dequeue(t_queue *q);
 void print_queue(t_queue *q);
 
 
-
+/**
+****************************ANT****************
+*/
+void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
+void	print_ant(t_anthill *anthill,t_ant *tab_ant,int id_ant);
+void	create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path);
 
 
 #endif
