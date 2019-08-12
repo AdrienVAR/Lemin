@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 14:24:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/12 17:01:09 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:20:10 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path)
 	tab_ant[i - 1].id_ant = i;
 	tab_ant[i - 1].path = (i - 1) % anthill->nb_path;
 	tab_ant[i - 1].connex = path->array[(i - 1) % anthill->nb_path].next;
+	tab_ant[i - 1].is_in = 1;
 }
 
 void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
@@ -43,7 +44,6 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)
 {
 	int	id_room;
- 	(void)anthill;
 	id_room = tab_ant[id_ant - 1 ].connex->room_id;
 	ft_putchar('L');
 	ft_putnbr(id_ant);

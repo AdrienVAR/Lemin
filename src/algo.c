@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/12 17:12:26 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:21:57 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 		if (tab_ant[i].is_in)
 		{
 			move_ant(anthill, &tab_ant[i]);
+			ft_putnbr(i);
 			print_ant(anthill,tab_ant, i + 1 );
 		}
 		i++;
 	}
-
 	i = 0;
 	while (i < anthill->nb_path)
 	{
@@ -126,37 +126,18 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 		}
 		i++;
 	}
-
-
 }
 
 void	print_sol(t_anthill *anthill, t_graph *path)
 {
 	t_ant	tab_ant[anthill->nb_ant];
 	
-	
-	/*while (nb_end != anthill->nb_ant)
+	while (anthill->nb_end != anthill->nb_ant)
 	{
 		print_round(anthill, path, tab_ant);	
-	}*/
+		ft_putchar('\n');
+	}
 
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	ft_putnbr(anthill->nb_end);
-	ft_putchar('\n');
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	print_round(anthill,path, tab_ant);
-	ft_putchar('\n');
-	ft_putnbr(anthill->nb_end);
-	//print_all_ant(anthill,tab_ant);
-	//print_all_ant(anthill,tab_ant);
 
 }
 
