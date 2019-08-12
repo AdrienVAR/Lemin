@@ -25,6 +25,11 @@ t_connex	*new_connex(int dst)
 	return (connex);
 }
 
+/*
+** Create a graph storing each room_id in an array.
+** Each room_id has an adjacency list containing all its edges.
+*/
+
 t_graph		*create_graph(int nb_room)
 {
 	t_graph	*graph;
@@ -44,6 +49,10 @@ t_graph		*create_graph(int nb_room)
 	return (graph);
 }
 
+/*
+** Add edges in the adjacency of two room_ids, in both directions.
+*/
+
 int			add_edge(t_graph *graph, t_edge *edge)
 {
 	t_connex	*n_connex;
@@ -57,6 +66,10 @@ int			add_edge(t_graph *graph, t_edge *edge)
 	graph->array[edge->dst].next = n_connex;
 	return (1);
 }
+
+/*
+** Add edges in the adjacency of one room_id, in one direction.
+*/
 
 int			add_edge_side(t_graph *graph, int src, int dst)
 {

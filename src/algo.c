@@ -55,22 +55,16 @@ void    add_flow(t_anthill *anthill)
 		id = parent_id;
 	}
 
-
-	//remonte end to start et ajoute 1/-1 dans connex->value
-
 }
 
-/*
- ** Entry point of the algo.
- ** Implementation of a simplified Edmonds-Karp algorithm.
- */
-void	fill_path(t_anthill *anthill,t_graph *path,int nb_chemin)
+
+void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 {
 	int i;
 	t_connex *neighbour;
 
 	i = 0;
-	while (i < nb_chemin)
+	while (i < nb_path)
 	{
 		neighbour = anthill->graph->array[anthill->id_start].next;
 		while (neighbour)
@@ -100,6 +94,10 @@ void	move_ant(t_anthill *anthill, t_ant *ant)
 		anthill->nb_end++;
 	}
 }
+
+/*
+** Print each round where ants are sent in the anthill.
+*/
 
 void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 {
@@ -139,6 +137,11 @@ void	print_sol(t_anthill *anthill, t_graph *path)
 
 
 }
+
+/*
+** Entry point of the algo.
+** Implementation of a simplified Edmonds-Karp algorithm.
+*/
 
 void    algo(t_anthill *anthill)
 {

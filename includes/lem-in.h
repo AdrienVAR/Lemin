@@ -151,11 +151,13 @@ void		lem_in(char *filename);
 
 void		error_message(void);
 
-t_queue* createqueue();
-void enqueue(t_queue *q, t_room *room);
-t_room* dequeue(t_queue *q);
-void print_queue(t_queue *q);
-
+/*
+***********************************QUEUE***************************************
+*/
+t_queue*	createqueue();
+void		enqueue(t_queue *q, t_room *room);
+t_room*		dequeue(t_queue *q);
+void		print_queue(t_queue *q);
 
 /**
 ****************************ANT****************
