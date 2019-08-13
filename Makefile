@@ -14,7 +14,8 @@ SRC_FILES = main.c			\
 			algo.c			\
 			queue.c			\
 			ant.c			\
-			bfs.c				
+			bfs.c			\
+			print.c				
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 

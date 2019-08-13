@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/12 16:12:42 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/13 11:02:28 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "./libft/libft.h"
 
-# define NB_ROOM 10
+
 typedef	struct s_connex
 {
 	int			room_id;
@@ -61,21 +61,6 @@ typedef struct s_anthill
 	int			nb_end;
 	int			nb_path;
 }				t_anthill;
-
-typedef struct s_bfs
-{
-	t_connex	*connex;
-	int			bfs_round;
-	int 		que_in[NB_ROOM];
-    int 		que_out[NB_ROOM];
-    int 		room_que_out;
-    int 		room_que_in;
-	int			start_room;
-    int 		end_room;
-    int 		end_bfs;
-    int 		que_len;
-}				t_bfs;
-
 
 typedef	struct s_queue
 {
@@ -159,12 +144,17 @@ void		enqueue(t_queue *q, t_room *room);
 t_room*		dequeue(t_queue *q);
 void		print_queue(t_queue *q);
 
-/**
+/*
 ****************************ANT****************
 */
 void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
-void	print_ant(t_anthill *anthill,t_ant *tab_ant,int id_ant);
-void	create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path);
-
+void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant);
+void	create_ant(t_anthill *anthill, t_ant *tab_ant, t_graph *path);
+void	move_ant(t_anthill *anthill, t_ant *tab_ant);
+/*
+**********************************PRINT****************************************
+*/
+void 	print_sol(t_anthill * anthill, t_graph *path);
+void	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant);
 
 #endif
