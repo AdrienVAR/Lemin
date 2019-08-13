@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/13 11:19:48 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/13 11:52:51 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void    algo(t_anthill *anthill)
 {
 	t_graph		*path;
 	anthill->nb_path = 0;
-	t_graph		tmp_graph;
 
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
+		print_anthill(anthill);
 		add_flow(anthill);
 		anthill->nb_path++;
 		print_graph(anthill->graph);
