@@ -3,35 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 21:40:55 by advardon          #+#    #+#             */
-/*   Updated: 2018/11/19 21:56:18 by advardon         ###   ########.fr       */
+/*   Created: 2018/11/22 16:28:46 by acostaz           #+#    #+#             */
+/*   Updated: 2019/07/19 11:15:41 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void		ft_putnbr_fd(int n, int fd)
 {
-	if (n == -2147483648)
+	unsigned int	nbr;
+
+	nbr = n;
+	if (n == 0)
+	{
+		ft_putchar_fd('0', fd);
+		return ;
+	}
+	if (n < 0)
 	{
 		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
+		nbr = -n;
 	}
-	else if (n < 0)
+	if (nbr > 0)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putnbr_fd(n * -1, fd);
-	}
-	else if (n < 10)
-	{
-		ft_putchar_fd(n % 10 + 48, fd);
-	}
-	else if (n >= 10)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + 48, fd);
+		if (nbr < 10)
+			ft_putchar_fd((nbr % 10) + '0', fd);
+		else
+		{
+			ft_putnbr_fd((int)(nbr / 10), fd);
+			ft_putchar_fd((nbr % 10) + '0', fd);
+		}
 	}
 }

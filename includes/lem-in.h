@@ -64,8 +64,8 @@ typedef struct s_anthill
 
 typedef	struct s_queue
 {
-	t_room *front;
-	t_room *rear;
+	t_room 		*front;
+	t_room 		*rear;
 }				t_queue;
 
 typedef	struct	s_ant

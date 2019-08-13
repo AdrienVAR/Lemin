@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/22 13:57:31 by advardon          #+#    #+#             */
-/*   Updated: 2018/11/24 17:40:18 by advardon         ###   ########.fr       */
+/*   Created: 2018/11/07 17:15:33 by acostaz           #+#    #+#             */
+/*   Updated: 2018/11/29 19:23:40 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,25 @@
 
 int	ft_atoi(const char *str)
 {
-	int					i;
-	int					atoisign;
-	unsigned long long	nb;
+	unsigned int	i;
+	int				res;
+	int				sign;
 
-	atoisign = 1;
-	nb = 0;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' ||
-			str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
+	res = 0;
+	sign = 1;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			atoisign = atoisign * -1;
-		i++;
-	}
+		if (str[i++] == '-')
+			sign = -1;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		nb = nb * 10 + str[i] - 48;
+		res += (str[i]) - '0';
+		if (str[i + 1] >= '0' && str[i + 1] <= '9')
+			res *= 10;
 		i++;
 	}
-	if (i > 19 || nb > 9223372036854775807)
-		return (atoisign < 0 ? 0 : -1);
-	return ((int)nb * atoisign);
+	return (res * sign);
 }

@@ -47,6 +47,7 @@ SOURCES =	ft_memset.c \
 			ft_strtrim.c \
 			ft_strsplit.c \
 			ft_putendl.c \
+			ft_putnbrendl.c \
 			ft_putnbr.c \
 			ft_putchar.c \
 			ft_itoa.c \
@@ -63,13 +64,30 @@ SOURCES =	ft_memset.c \
 			ft_lstmap.c	\
 			ft_sqrt.c \
 			ft_pgcd.c \
+			ft_printf.c \
 			ft_iterative_power.c \
 			ft_strtoupper.c \
 			ft_strtolower.c \
 			ft_swap.c \
 			ft_print_words_table.c \
 			ft_nb_digit.c \
-			get_next_line.c
+			get_next_line.c \
+			get_format.c \
+			buff.c			\
+			float_exponents.c \
+			float_utils.c \
+			get_format.c \
+			id_utils.c \
+			type_c.c \
+			type_d.c \
+			type_f.c \
+			type_o.c \
+			type_p.c \
+			type_pct.c \
+			type_s.c \
+			type_u.c \
+			type_x.c \
+			utils.c 
 
 .PHONY: all clean fclean re
 

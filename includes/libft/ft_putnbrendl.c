@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbrendl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acostaz <acostaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/17 15:25:45 by acostaz           #+#    #+#             */
-/*   Updated: 2019/07/19 11:15:49 by acostaz          ###   ########.fr       */
+/*   Created: 2019/02/13 10:46:48 by acostaz           #+#    #+#             */
+/*   Updated: 2019/07/19 11:15:45 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+void	ft_putnbrendl(int nbr)
 {
-	write(1, s, ft_strlen(s));
+	ft_putnbr(nbr);
+	ft_putchar('\n');
 }

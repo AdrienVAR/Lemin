@@ -54,9 +54,7 @@ void    add_flow(t_anthill *anthill)
 		actualize_connex(anthill, id, parent_id);
 		id = parent_id;
 	}
-
 }
-
 
 void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 {
@@ -83,6 +81,28 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 }
 
 /*
+int lenpath(t_anthill *anthill)
+{
+
+
+
+}
+*/
+
+/*
+int	nb_rounds_sol(t_anthill *anthill)
+{
+	int rounds;
+
+c
+
+
+
+	return (rounds);
+}*/
+
+
+/*
 ** Entry point of the algo.
 ** Implementation of a simplified Edmonds-Karp algorithm.
 */
@@ -94,6 +114,7 @@ void    algo(t_anthill *anthill)
 
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
+	//	nb_rounds_sol();
 		print_anthill(anthill);
 		add_flow(anthill);
 		anthill->nb_path++;
