@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/13 11:52:51 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:50:07 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 		neighbour = anthill->graph->array[anthill->id_start].next;
 		while (neighbour)
 		{
-			if (neighbour->value == 1)
+			if (neighbour->value == 1 && neighbour->in_path == 0)
 			{
 				add_edge_side(path, i ,neighbour->room_id);
-				neighbour->value = -2;
+				neighbour->in_path = 1;
 				neighbour = anthill->graph->array[neighbour->room_id].next;
 			}
 			else
@@ -80,32 +80,43 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 	}
 }
 
-/*
-int lenpath(t_anthill *anthill)
+int len_path(t_connex *connex)
 {
+    t_connex *actual;
+    int len;
 
-
-
+    actual = connex;
+    len = 0;
+    while(actual)
+    {
+        actual = actual->next;
+        len++;
+    }
+    return (len);
 }
-*/
-
-/*
-int	nb_rounds_sol(t_anthill *anthill)
-{
-	int rounds;
-
-c
-
-
-
-	return (rounds);
-}*/
-
 
 /*
 ** Entry point of the algo.
 ** Implementation of a simplified Edmonds-Karp algorithm.
 */
+
+void	reinit_graph(t_graph *graph)
+{
+	int i;
+	t_connex	*connex;
+
+	i = 0;
+	while (i < graph->nb_room)
+	{
+		connex = graph->array[i].next;
+		while (connex)
+		{
+			connex->in_path = 0;
+			connex = connex->next;
+		}
+		i++;
+	}
+}
 
 void    algo(t_anthill *anthill)
 {
@@ -115,13 +126,18 @@ void    algo(t_anthill *anthill)
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
 	//	nb_rounds_sol();
-		print_anthill(anthill);
 		add_flow(anthill);
 		anthill->nb_path++;
-		print_graph(anthill->graph);
+
+		reinit_graph(anthill->graph);
+		path = create_graph(anthill->nb_path);
+		fill_path(anthill, path, anthill->nb_path);
+		print_graph(path);
 		ft_putchar('\n');
 	}
 	path = create_graph(anthill->nb_path);
 	fill_path(anthill, path, anthill->nb_path);
+	print_graph(path);
+	ft_putnbr(len_path(path->array[0].next));
 	print_sol(anthill,path);
 }

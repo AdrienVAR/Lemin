@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/12 13:56:52 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:42:56 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_connex	*new_connex(int dst)
 		return (NULL);
 	connex->room_id = dst;
 	connex->value = 0;
+	connex->in_path = 0;
 	connex->next = NULL;
 	return (connex);
 }
