@@ -21,3 +21,20 @@ void	error_message(void)
 	write(1, "ERROR\n", 6);
 	exit(1);
 }
+
+/*
+** Print ants on a new line
+*/
+
+void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)
+{
+	int	id_room;
+	id_room = tab_ant[id_ant - 1 ].connex->room_id;
+
+	ft_putchar('L');
+	ft_putnbr(id_ant);
+	ft_putchar('-');
+	ft_putstr(anthill->tab_room[id_room].name);
+	ft_putnbr(id_room);
+	ft_putchar(' ');
+}

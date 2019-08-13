@@ -12,6 +12,10 @@
 
 #include "../includes/lem-in.h"
 
+/*
+** Create an ant, assign her ID and her path
+*/
+
 void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path)
 {
 	int i;
@@ -40,6 +44,10 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 	}
 }
 
+/*
+** Move an ant to the next room
+*/
+
 void	move_ant(t_anthill *anthill, t_ant *ant)
 {
 	ant->connex = ant->connex->next;
@@ -48,17 +56,4 @@ void	move_ant(t_anthill *anthill, t_ant *ant)
 		ant->is_in = 0;
 		anthill->nb_end++;
 	}
-}
-
-void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)
-{
-	int	id_room;
-	id_room = tab_ant[id_ant - 1 ].connex->room_id;
-
-	ft_putchar('L');
-	ft_putnbr(id_ant);
-	ft_putchar('-');
-	ft_putstr(anthill->tab_room[id_room].name);
-	ft_putnbr(id_room);
-	ft_putchar(' ');
 }

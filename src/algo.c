@@ -56,6 +56,11 @@ void    add_flow(t_anthill *anthill)
 	}
 }
 
+/*
+** For each path, add the connected rooms from start to end in an
+** adjacency list.
+*/
+
 void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 {
 	int i;
@@ -80,6 +85,10 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 	}
 }
 
+/*
+** Return the number of room from start to end in this path
+*/
+
 int len_path(t_connex *connex)
 {
     t_connex *actual;
@@ -95,10 +104,6 @@ int len_path(t_connex *connex)
     return (len);
 }
 
-/*
-** Entry point of the algo.
-** Implementation of a simplified Edmonds-Karp algorithm.
-*/
 
 void	reinit_graph(t_graph *graph)
 {
@@ -118,27 +123,72 @@ void	reinit_graph(t_graph *graph)
 	}
 }
 
+/*
+** Count how many operations are necessary to move all the ants in this graph.
+*/
+
+int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
+{
+	int nb_op;
+	int len_paths;
+	int i;
+
+	i = 0;
+	len_paths = 0;
+	while(i < nb_path)
+	{
+		len_paths += len_path(path->array[i].next);
+		i++;
+	}
+	nb_op = (nb_ant + len_paths) / nb_path;
+	return (nb_op);
+}
+
+
+int		nb_paths(t_graph *path)
+{
+	int i;
+
+	i = 0;
+	while(path->array[i].next)
+	i++;
+	return(i);
+}
+
+/*
+** Entry point of the algo.
+** Implementation of a simplified Edmonds-Karp algorithm.
+*/
+
 void    algo(t_anthill *anthill)
 {
 	t_graph		*path;
+	t_graph		*best_path;
 	anthill->nb_path = 0;
+	int nb_op;
+	int min;
 
+	min = 10000000;
+	nb_op = 0;
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
-	//	nb_rounds_sol();
 		add_flow(anthill);
 		anthill->nb_path++;
 
 		reinit_graph(anthill->graph);
 		path = create_graph(anthill->nb_path);
 		fill_path(anthill, path, anthill->nb_path);
-		print_graph(path);
-		ft_putchar('\n');
+		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) < min)
+		{
+			min = calc_nb_op(path, anthill->nb_ant, anthill->nb_path);
+			reinit_graph(anthill->graph);
+			best_path = create_graph(anthill->nb_path);
+			fill_path(anthill, best_path, anthill->nb_path);
+		}
+		//print_graph(path);
 	}
-	path = create_graph(anthill->nb_path);
-	//lenpath()
-	fill_path(anthill, path, anthill->nb_path);
-	print_graph(path);
-	ft_putnbr(len_path(path->array[0].next));
-	print_sol(anthill,path);
+	anthill->nb_path = nb_paths(best_path);
+	print_graph(best_path);
+	//ft_putnbr(len_path(path->array[0].next));
+	print_sol(anthill, best_path);
 }

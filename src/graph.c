@@ -13,6 +13,13 @@
 #include "../includes/lem-in.h"
 #include <stdio.h>
 
+/*
+** Create a connection from src to a room.
+** Each connection is assigned the id of the connected room, a flow value,
+** a bool to check if this connection is a path in the algo, and a pointer 
+** in case another room connected to src is added.
+*/
+
 t_connex	*new_connex(int dst)
 {
 	t_connex	*connex;
@@ -39,10 +46,10 @@ t_graph		*create_graph(int nb_room)
 	if (!(graph = (t_graph*)malloc(sizeof(t_graph))))
 		return (NULL);
 	graph->nb_room = nb_room;
-	if (!(graph->array = (t_connex*)malloc(sizeof(t_connex) * nb_room)))
+	if (!(graph->array = (t_connex*)malloc(sizeof(t_connex) * (nb_room + 1))))
 		return (NULL);
 	i = 0;
-	while (i < nb_room)
+	while (i <= nb_room)
 	{
 		graph->array[i].next = NULL;
 		i++;
