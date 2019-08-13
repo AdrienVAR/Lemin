@@ -80,21 +80,27 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 	}
 }
 
-/*
-int lenpath(t_anthill *anthill)
+int lenpath(t_connex *connex)
 {
+	t_connex *actual;
+	int len;
 
-
-
+	actual = connex;
+	len = 0;
+	while(actual)
+	{
+		actual = actual->next;
+		len++;
+	} 
+	ft_printf("%d \n", len);
+	return (len);
 }
-*/
 
 /*
 int	nb_rounds_sol(t_anthill *anthill)
 {
 	int rounds;
 
-c
 
 
 
@@ -122,6 +128,7 @@ void    algo(t_anthill *anthill)
 		ft_putchar('\n');
 	}
 	path = create_graph(anthill->nb_path);
+	//lenpath()
 	fill_path(anthill, path, anthill->nb_path);
 	print_sol(anthill,path);
 }
