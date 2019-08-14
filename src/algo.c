@@ -112,7 +112,7 @@ void	sort_path(t_graph *path, int nb_path)
 	tmp_connex = NULL;
 	while (i < nb_path)
 	{
-		if (len_path(path->array[i].next) < len_path(path->array[i + 1].next))
+		if (len_path(path->array[i].next) > len_path(path->array[i + 1].next))
 		{
 			tmp_connex = path->array[i].next;
 			path->array[i].next = path->array[i + 1].next;
