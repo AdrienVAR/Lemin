@@ -19,6 +19,7 @@
 void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len)
 {
 	int	i;
+	int diff_path;
 
 	i = 0;
 	while (i < anthill->nb_in)
@@ -35,8 +36,17 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_le
 	{
 		if (anthill->nb_in < anthill->nb_ant)
 		{
-			create_ant(anthill, tab_ant, path, path_len);
-			print_ant(anthill,tab_ant, anthill->nb_in);
+			if (i > 0)
+				diff_path = path_len[i] - path_len[i - 1];
+			else
+				diff_path = 0;
+			if (anthill->nb_in + 1 > anthill->nb_ant - diff_path)
+				anthill->nb_path--;
+			else
+			{
+				create_ant(anthill, tab_ant, path, i);
+				print_ant(anthill,tab_ant, anthill->nb_in);
+			}
 		}
 		i++;
 	}
@@ -50,8 +60,13 @@ void	print_sol(t_anthill *anthill, t_graph *path)
 
 	i = -1;
 	while (++i < anthill->nb_path)
+	{
 		path_len[i]= len_path(path->array[i].next);
-
+		ft_putnbr(i);
+		ft_putstr (" :  ");
+		ft_putnbr(path_len[i]);
+		ft_putchar('\n');
+	}
 	while (anthill->nb_end != anthill->nb_ant)
 	{
 		print_round(anthill, path, tab_ant,path_len);	

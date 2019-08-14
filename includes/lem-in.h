@@ -152,7 +152,7 @@ void		print_queue(t_queue *q);
 
 void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant);
-void	create_ant(t_anthill *anthill, t_ant *tab_ant, t_graph *path, int *path_len);
+void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path);
 void	move_ant(t_anthill *anthill, t_ant *tab_ant);
 
 /*
