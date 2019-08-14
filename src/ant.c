@@ -12,19 +12,33 @@
 
 #include "../includes/lem-in.h"
 
+
 /*
 ** Create an ant, assign her ID and her path
 */
 
-void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path)
+void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int *path_len)
 {
 	int i;
+	int num_path;
+	int	diff_path;
 
 	anthill->nb_in++;
 	i = anthill->nb_in;
 	tab_ant[i - 1].id_ant = i;
-	tab_ant[i - 1].path = (i - 1) % anthill->nb_path;
-	tab_ant[i - 1].connex = path->array[(i - 1) % anthill->nb_path].next;
+	num_path = (i - 1) % anthill->nb_path;
+	while (num_path >= 0)
+	{
+		diff_path = path_len[num_path] - path_len[0];
+		if (tab_ant[i - 1].id_ant < anthill->nb_ant - diff_path)
+		{	
+			tab_ant[i - 1].path = num_path;
+			tab_ant[i - 1].connex = path->array[num_path].next;
+			break;
+		}
+		num_path--;
+	}
+	//tab_ant[i - 1].connex = path->array[(i - 1) % anthill->nb_path].next;
 	tab_ant[i - 1].is_in = 1;
 }
 

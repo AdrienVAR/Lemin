@@ -16,7 +16,7 @@
 ** Print each round where ants are sent in the anthill.
 */
 
-void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
+void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 	{
 		if (anthill->nb_in < anthill->nb_ant)
 		{
-			create_ant(anthill, tab_ant, path);
+			create_ant(anthill, tab_ant, path, path_len);
 			print_ant(anthill,tab_ant, anthill->nb_in);
 		}
 		i++;
@@ -45,10 +45,16 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant)
 void	print_sol(t_anthill *anthill, t_graph *path)
 {
 	t_ant	tab_ant[anthill->nb_ant];
-	
+	int		path_len[anthill->nb_path];
+	int		i;
+
+	i = -1;
+	while (++i < anthill->nb_path)
+		path_len[i]= len_path(path->array[i].next);
+
 	while (anthill->nb_end != anthill->nb_ant)
 	{
-		print_round(anthill, path, tab_ant);	
+		print_round(anthill, path, tab_ant,path_len);	
 		ft_putchar('\n');
 	}
 }

@@ -124,6 +124,7 @@ int 			bfs(t_anthill *anthill);
 */
 
 void			algo(t_anthill *anthill);
+int 			len_path(t_connex *connex);
 
 /*
 **********************************LEM_IN***************************************
@@ -151,7 +152,7 @@ void		print_queue(t_queue *q);
 
 void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant);
-void	create_ant(t_anthill *anthill, t_ant *tab_ant, t_graph *path);
+void	create_ant(t_anthill *anthill, t_ant *tab_ant, t_graph *path, int *path_len);
 void	move_ant(t_anthill *anthill, t_ant *tab_ant);
 
 /*
@@ -159,6 +160,6 @@ void	move_ant(t_anthill *anthill, t_ant *tab_ant);
 */
 
 void 	print_sol(t_anthill * anthill, t_graph *path);
-void	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant);
+void	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len);
 
 #endif

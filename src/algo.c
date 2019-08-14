@@ -106,19 +106,25 @@ int len_path(t_connex *connex)
 void	sort_path(t_graph *path, int nb_path)
 {
 	int i;
+	int	j;
 	t_connex	*tmp_connex;
 
 	i = 0;
 	tmp_connex = NULL;
-	while (i < nb_path)
+	while (i < nb_path - 1)
 	{
-		if (len_path(path->array[i].next) > len_path(path->array[i + 1].next))
+		j = i + 1;
+		while (j < nb_path)
 		{
-			tmp_connex = path->array[i].next;
-			path->array[i].next = path->array[i + 1].next;
-			path->array[i + 1].next = tmp_connex;
+			if (len_path(path->array[i].next) > len_path(path->array[j].next))
+			{
+				tmp_connex = path->array[i].next;
+				path->array[i].next = path->array[j].next;
+				path->array[j].next = tmp_connex;
+			}
+			j++;	
 		}
-		i++;	
+		i++;
 	}
 }
 
@@ -206,8 +212,7 @@ void    algo(t_anthill *anthill)
 		//print_graph(path);
 	}
 	anthill->nb_path = nb_paths(best_path);
-	sort_path(path, anthill->nb_path);
+	sort_path(best_path, anthill->nb_path);
 	print_graph(best_path);
-	//ft_putnbr(len_path(path->array[0].next));
 	print_sol(anthill, best_path);
 }
