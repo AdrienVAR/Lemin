@@ -30,9 +30,10 @@ void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int *path_len)
 	while (num_path >= 0)
 	{
 		diff_path = path_len[num_path] - path_len[0];
-		if (tab_ant[i - 1].id_ant < anthill->nb_ant - diff_path)
+		if (tab_ant[i - 1].id_ant <= anthill->nb_ant - diff_path)
 		{	
 			tab_ant[i - 1].path = num_path;
+			ft_putnbr(num_path);
 			tab_ant[i - 1].connex = path->array[num_path].next;
 			break;
 		}
