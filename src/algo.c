@@ -15,7 +15,6 @@
 void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 {
 	t_connex *actual;
-
 	actual = anthill->graph->array[id].next;
 
 	while(actual)
@@ -104,6 +103,25 @@ int len_path(t_connex *connex)
     return (len);
 }
 
+void	sort_path(t_graph *path, int nb_path)
+{
+	int i;
+	t_connex	*tmp_connex;
+
+	i = 0;
+	tmp_connex = NULL;
+	while (i < nb_path)
+	{
+		if (len_path(path->array[i].next) < len_path(path->array[i + 1].next))
+		{
+			tmp_connex = path->array[i].next;
+			path->array[i].next = path->array[i + 1].next;
+			path->array[i + 1].next = tmp_connex;
+		}
+		i++;	
+	}
+}
+
 
 void	reinit_graph(t_graph *graph)
 {
@@ -188,6 +206,7 @@ void    algo(t_anthill *anthill)
 		//print_graph(path);
 	}
 	anthill->nb_path = nb_paths(best_path);
+	sort_path(path, anthill->nb_path);
 	print_graph(best_path);
 	//ft_putnbr(len_path(path->array[0].next));
 	print_sol(anthill, best_path);
