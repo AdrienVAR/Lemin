@@ -35,6 +35,6 @@ void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant)
 	ft_putnbr(id_ant);
 	ft_putchar('-');
 	ft_putstr(anthill->tab_room[id_room].name);
-	ft_putnbr(id_room);
+	//ft_putnbr(id_room);
 	ft_putchar(' ');
 }

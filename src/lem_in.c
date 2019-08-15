@@ -55,7 +55,10 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill)
 		{
 			name = ft_strsplit(*line,' ');
 			add_room(anthill, name[0], last_cmd);
+			ft_putendl(*line);
 		}	
+		if (cmd == 2 || cmd == 1)
+			ft_putendl(*line);
 		get_next_line(fd, line);
 		last_cmd = cmd; 
 	}
@@ -76,6 +79,7 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
 		if (edge)
 		{
 			add_edge(anthill->graph,edge);
+			ft_putendl(*line);
 			free(edge);
 		}
 		if (get_next_line(fd, line) <= 0)
@@ -94,6 +98,7 @@ void	read_and_parse(int fd, t_anthill *anthill)
 
 	if (get_next_line(fd, &line) < 0)
 		error_message();
+	ft_putendl(line);
 	//check_ant(&line)
 	anthill->nb_ant = ft_atoi(line);
 
@@ -115,6 +120,7 @@ void	lem_in(char *filename)
 	if (!(fd = open_file(filename)))
 		error_message();
 	read_and_parse(fd, anthill);
-	//print_anthill(anthill);	
+	//print_anthill(anthill);
+	ft_putchar('\n');	
 	algo(anthill);
 }

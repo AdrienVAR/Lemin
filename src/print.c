@@ -16,10 +16,10 @@
 ** Print each round where ants are sent in the anthill.
 */
 
-void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len)
+void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_nb_ant)
 {
 	int	i;
-	int diff_path;
+	static	int	round = 0;
 
 	i = 0;
 	while (i < anthill->nb_in)
@@ -36,11 +36,7 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_le
 	{
 		if (anthill->nb_in < anthill->nb_ant)
 		{
-			if (i > 0)
-				diff_path = path_len[i] - path_len[i - 1];
-			else
-				diff_path = 0;
-			if (anthill->nb_in + 1 > anthill->nb_ant - diff_path)
+			if (round >= path_nb_ant[i])
 				anthill->nb_path--;
 			else
 			{
@@ -50,26 +46,27 @@ void 	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_le
 		}
 		i++;
 	}
+	round++;
 }
 
 void	print_sol(t_anthill *anthill, t_graph *path)
 {
 	t_ant	tab_ant[anthill->nb_ant];
 	int		path_len[anthill->nb_path];
+	int		path_nb_ant[anthill->nb_path];
 	int		i;
 
 	i = -1;
 	while (++i < anthill->nb_path)
 	{
 		path_len[i]= len_path(path->array[i].next);
-		ft_putnbr(i);
-		ft_putstr (" :  ");
-		ft_putnbr(path_len[i]);
-		ft_putchar('\n');
+		path_nb_ant[i] = anthill->nb_op - (path_len[i] -1);
+		//printf("len chemin : %d,  nb fourmis : %d\n", path_len[i], path_nb_ant[i]);
 	}
+
 	while (anthill->nb_end != anthill->nb_ant)
 	{
-		print_round(anthill, path, tab_ant,path_len);	
+		print_round(anthill, path, tab_ant, path_nb_ant);	
 		ft_putchar('\n');
 	}
 }

@@ -61,6 +61,7 @@ typedef struct s_anthill
 	int 		nb_in;
 	int			nb_end;
 	int			nb_path;
+	int 		nb_op;
 }				t_anthill;
 
 typedef	struct s_queue

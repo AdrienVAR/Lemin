@@ -190,9 +190,8 @@ void    algo(t_anthill *anthill)
 	t_graph		*best_path;
 	anthill->nb_path = 0;
 	int nb_op;
-	int min;
 
-	min = 10000000;
+	anthill->nb_op= 10000000;
 	nb_op = 0;
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
@@ -202,17 +201,20 @@ void    algo(t_anthill *anthill)
 		reinit_graph(anthill->graph);
 		path = create_graph(anthill->nb_path);
 		fill_path(anthill, path, anthill->nb_path);
-		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) < min)
+		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) < anthill->nb_op)
 		{
-			min = calc_nb_op(path, anthill->nb_ant, anthill->nb_path);
+			anthill->nb_op = calc_nb_op(path, anthill->nb_ant, anthill->nb_path);
 			reinit_graph(anthill->graph);
 			best_path = create_graph(anthill->nb_path);
 			fill_path(anthill, best_path, anthill->nb_path);
 		}
+		
 		//print_graph(path);
 	}
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);
 	print_graph(best_path);
 	print_sol(anthill, best_path);
+	//ft_putchar('\n');
+	//ft_putnbr(anthill->nb_op);
 }

@@ -41,7 +41,7 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 		ft_putnbr(tab_ant[i].id_ant);
 		ft_putstr(": path :");
 		ft_putnbr(tab_ant[i].path);
-		ft_putstr(": room :");
+		//ft_putstr(": room :");
 		ft_putnbr(tab_ant[i].connex->room_id);
 		ft_putchar('\n');
 		i++;
