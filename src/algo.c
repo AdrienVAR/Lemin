@@ -197,6 +197,7 @@ void    algo(t_anthill *anthill)
 	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
 	{
 		add_flow(anthill);
+		
 		anthill->nb_path++;
 
 		reinit_graph(anthill->graph);
@@ -209,12 +210,19 @@ void    algo(t_anthill *anthill)
 			best_path = create_graph(anthill->nb_path);
 			fill_path(anthill, best_path, anthill->nb_path);
 		}
-		
-		//print_graph(path);
+		else
+			break;
+		ft_printf("ROUND :%d\n",anthill->nb_path);
+		ft_putstr("GRAPH\n");
+		print_graph(anthill->graph);
+		ft_putstr("anthill\n");
+		print_anthill(anthill);
+		ft_putstr("PATH\n");
+		print_graph2(path);
 	}
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);
-//	print_graph(best_path);
+	print_graph(best_path);
 	print_sol(anthill, best_path);
 	//ft_putchar('\n');
 	//ft_putnbr(anthill->nb_op);

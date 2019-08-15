@@ -107,6 +107,35 @@ void		print_graph(t_graph *graph)
 	i = 0;
 	while (i < graph->nb_room)
 	{
+		if (i == 1945 || i == 2069 || i == 1054 || i == 2 || i == 2070)
+		{
+		ft_putnbr(i);
+		ft_putstr("->(");
+		connex = graph->array[i].next;
+		while (connex)
+		{
+
+			ft_putnbr(connex->room_id);
+			ft_putstr(" : ");
+			ft_putnbr(connex->value);
+			ft_putstr(")  -->   (");
+			connex = connex->next;
+		}
+		ft_putstr("NULL\n");
+		}
+		i++;
+	}
+}
+
+void		print_graph2(t_graph *graph)
+{
+	int i;
+	t_connex	*connex;
+
+	i = 0;
+	while (i < graph->nb_room)
+	{
+		
 		ft_putnbr(i);
 		ft_putstr("->(");
 		connex = graph->array[i].next;

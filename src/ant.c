@@ -25,7 +25,7 @@ void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path)
 	i = anthill->nb_in;
 	tab_ant[i - 1].id_ant = i;
 	tab_ant[i - 1].path = num_path;
-	//ft_putnbr(num_path);
+	ft_putnbr(num_path);
 	tab_ant[i - 1].connex = path->array[num_path].next;
 
 	//tab_ant[i - 1].connex = path->array[(i - 1) % anthill->nb_path].next;

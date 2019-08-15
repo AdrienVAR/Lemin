@@ -97,6 +97,7 @@ t_graph		*create_graph(int nb_room);
 int			add_edge(t_graph *graph, t_edge *edge);
 int			add_edge_side(t_graph *graph, int src, int dst);
 void		print_graph(t_graph *graph);
+void		print_graph2(t_graph *graph);
 /*
 **********************************ROOM*****************************************
 */
@@ -154,7 +155,7 @@ void		print_queue(t_queue *q);
 
 void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant);
-void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path);
+void 	create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path);
 void	move_ant(t_anthill *anthill, t_ant *tab_ant);
 
 /*

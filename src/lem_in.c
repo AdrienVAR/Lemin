@@ -108,7 +108,7 @@ void	read_and_parse(int fd, t_anthill *anthill)
 	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill);
-	//print_graph(anthill->graph);
+	print_graph(anthill->graph);
 }
 	
 void	lem_in(char *filename)
