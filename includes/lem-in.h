@@ -43,6 +43,7 @@ typedef struct	s_room
 	int		name_len;
 	int 	id;
 	struct	s_room *next;
+	int 	in_path;
 	int		parent_id;
 	int		start;
 	int		end;

@@ -49,6 +49,7 @@ void    add_flow(t_anthill *anthill)
 	while (id != anthill->id_start)
 	{
 		room = &anthill->tab_room[id];
+		room->in_path = 1;
 		parent_id = room->parent_id;
 		actualize_connex(anthill, id, parent_id);
 		id = parent_id;
@@ -213,7 +214,7 @@ void    algo(t_anthill *anthill)
 	}
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);
-	print_graph(best_path);
+//	print_graph(best_path);
 	print_sol(anthill, best_path);
 	//ft_putchar('\n');
 	//ft_putnbr(anthill->nb_op);

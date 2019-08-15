@@ -19,6 +19,19 @@ int    process_neighbours(t_anthill *anthill, t_room *actual, t_queue *q, int ro
     neighbour = anthill->graph->array[actual->id].next;
     while(neighbour)
     { 
+        if(neighbour->in_path == 1)
+        {
+            if (anthill->tab_room[neighbour->room_id].visited != round && neighbour->value == - 1)
+            {
+            anthill->tab_room[neighbour->room_id].visited = round;
+            anthill->tab_room[neighbour->room_id].parent_id = actual->id;
+            neighbour->next->in_path = 0;
+            enqueue(q, &anthill->tab_room[neighbour->room_id]); 
+            if (neighbour->room_id == anthill->id_end) 
+                return 1; 
+            }
+        }
+
         if (anthill->tab_room[neighbour->room_id].visited != round && neighbour->value != 1)
         {
             anthill->tab_room[neighbour->room_id].visited = round;
