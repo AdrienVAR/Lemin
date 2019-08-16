@@ -44,7 +44,9 @@ typedef struct	s_room
 	int 	id;
 	struct	s_room *next;
 	int 	in_path;
+	int 	tmp_in_path;
 	int		parent_id;
+	int		tmp_parent_id;
 	int		start;
 	int		end;
 	int 	visited;

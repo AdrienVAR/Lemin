@@ -61,10 +61,10 @@ void	print_anthill(t_anthill *anthill)
 	i = 0;
 	while (i < anthill->nb_room)
 	{
-		if (i == 1945 || i == 2069 || i == 1054 || i == 2 || i == 2070)
+		if (/*i == 4 || i == 5 || i == 3 || i == 6*/ i==2232 || i == 2261 || i == 1845 || i == 3409 || i == 2231)
 		{
-		ft_printf("indice : %d  room_name :%s, parent_id : %d\n",
-				i, (anthill->tab_room)[i].name, (anthill->tab_room)[i].parent_id);
+		ft_printf("indice : %d  room_name :%s, parent_id : %d tmp_parent_id : %d, in_path : %d\n",
+				i, (anthill->tab_room)[i].name, (anthill->tab_room)[i].parent_id,(anthill->tab_room)[i].tmp_parent_id,(anthill->tab_room)[i].in_path);
 		}
 		i++;
 	}

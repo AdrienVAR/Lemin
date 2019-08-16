@@ -12,6 +12,14 @@
 
 #include "../includes/lem-in.h"
 
+t_room *get_room(t_anthill *anthill, int id)
+{
+	t_room *room;
+
+	room = &anthill->tab_room[id];
+	return(room);
+}
+
 void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 {
 	t_connex *actual;
@@ -50,6 +58,7 @@ void    add_flow(t_anthill *anthill)
 	{
 		room = &anthill->tab_room[id];
 		room->in_path = 1;
+		room->parent_id = room->tmp_parent_id;
 		parent_id = room->parent_id;
 		actualize_connex(anthill, id, parent_id);
 		id = parent_id;
@@ -64,7 +73,8 @@ void    add_flow(t_anthill *anthill)
 void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 {
 	int i;
-	t_connex *neighbour;
+	t_connex 	*neighbour;
+	t_room 		*room;
 
 	i = 0;
 	while (i < nb_path)
@@ -74,6 +84,8 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 		{
 			if (neighbour->value == 1 && neighbour->in_path == 0)
 			{
+				room = get_room(anthill, neighbour->room_id);
+				room->in_path = 1; //add parent_id
 				add_edge_side(path, i ,neighbour->room_id);
 				neighbour->in_path = 1;
 				neighbour = anthill->graph->array[neighbour->room_id].next;
@@ -219,6 +231,10 @@ void    algo(t_anthill *anthill)
 		print_anthill(anthill);
 		ft_putstr("PATH\n");
 		print_graph2(path);
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
 	}
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);

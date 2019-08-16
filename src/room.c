@@ -38,7 +38,9 @@ t_room			*new_room(char *name)
 	room->name_len = ft_strlen(name);
 	room->id = i;
 	room->parent_id = -1;
+	room->tmp_parent_id = -1;
 	room->in_path = 0;
+	room->tmp_in_path = 0;
 	room->end = 0;
 	room->start = 0;
 	room->visited = 0;

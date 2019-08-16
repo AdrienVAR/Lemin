@@ -25,7 +25,7 @@ OBJ = $(addprefix $(SRC_DIR), $(SRC_FILES:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) 
 	make -C includes/libft/
 	$(CC) $(FLAGS) -Lincludes/libft -lft -o $@ $^
 

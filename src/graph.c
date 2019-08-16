@@ -107,7 +107,7 @@ void		print_graph(t_graph *graph)
 	i = 0;
 	while (i < graph->nb_room)
 	{
-		if (i == 1945 || i == 2069 || i == 1054 || i == 2 || i == 2070)
+		if (i == 2232 || i == 1845 || i == 2261 || i == 3409 || i == 2231)
 		{
 		ft_putnbr(i);
 		ft_putstr("->(");
