@@ -12,6 +12,7 @@ SRC_FILES = main.c			\
 			anthill.c		\
 			graph.c			\
 			algo.c			\
+			algo_utils.c	\
 			queue.c			\
 			ant.c			\
 			bfs.c			\

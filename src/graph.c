@@ -17,7 +17,7 @@
 ** Create a connection from src to a room.
 ** Each connection is assigned the id of the connected room, a flow value,
 ** a bool to check if this connection is a path in the algo, and a pointer 
-** in case another room connected to src is added.
+** in case another room connected to this id is added.
 */
 
 t_connex	*new_connex(int dst)
@@ -55,6 +55,29 @@ t_graph		*create_graph(int nb_room)
 		i++;
 	}
 	return (graph);
+}
+
+/*
+** Reset to 0 the bool checking if a connection between two room is chosen
+** for a valid path.
+*/
+
+void	reinit_graph(t_graph *graph)
+{
+	int i;
+	t_connex	*connex;
+
+	i = 0;
+	while (i < graph->nb_room)
+	{
+		connex = graph->array[i].next;
+		while (connex)
+		{
+			connex->in_path = 0;
+			connex = connex->next;
+		}
+		i++;
+	}
 }
 
 /*

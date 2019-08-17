@@ -24,9 +24,10 @@ static int open_file(char *filename)
 
 
 /*
-**	check if the line is a valid command and return value corresponding
+**	Check if the line is a valid command and return value corresponding
 ** 	to the command
 */
+
 static int num_command(char *line)
 {
 	if (!(ft_strcmp(line, "##start")))
@@ -108,7 +109,7 @@ void	read_and_parse(int fd, t_anthill *anthill)
 	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill);
-	print_graph(anthill->graph);
+	//print_graph(anthill->graph);
 }
 	
 void	lem_in(char *filename)

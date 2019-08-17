@@ -12,13 +12,12 @@
 
 #include "../includes/lem-in.h"
 
-t_room *get_room(t_anthill *anthill, int id)
-{
-	t_room *room;
-
-	room = &anthill->tab_room[id];
-	return(room);
-}
+/*
+** Search the parent_id of a room in its connection adjacency list and reduce
+** this connection's flow value by 1. 
+** Search the id from which the room is parent in its connection adjacency list
+** and increase this connection's flow value by 1.
+*/
 
 void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 {
@@ -46,6 +45,12 @@ void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 	}
 }
 
+/*
+** From end room to start room, through the parent_id allocated by bfs
+** add a flow of +1 from parent_id to id and a flow of -1 in the opposite
+** direction. 
+*/
+
 void    add_flow(t_anthill *anthill)
 {
 	t_room *room;
@@ -57,8 +62,8 @@ void    add_flow(t_anthill *anthill)
 	while (id != anthill->id_start)
 	{
 		room = &anthill->tab_room[id];
-		room->in_path = 1;
-		room->parent_id = room->tmp_parent_id;
+		//room->in_path = 1;
+		//room->parent_id = room->tmp_parent_id;
 		parent_id = room->parent_id;
 		actualize_connex(anthill, id, parent_id);
 		id = parent_id;
@@ -85,7 +90,7 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 			if (neighbour->value == 1 && neighbour->in_path == 0)
 			{
 				room = get_room(anthill, neighbour->room_id);
-				room->in_path = 1; //add parent_id
+				room->in_path = 1;
 				add_edge_side(path, i ,neighbour->room_id);
 				neighbour->in_path = 1;
 				neighbour = anthill->graph->array[neighbour->room_id].next;
@@ -98,70 +103,8 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 }
 
 /*
-** Return the number of room from start to end in this path
-*/
-
-int len_path(t_connex *connex)
-{
-    t_connex *actual;
-    int len;
-
-    actual = connex;
-    len = 0;
-    while(actual)
-    {
-        actual = actual->next;
-        len++;
-    }
-    return (len);
-}
-
-void	sort_path(t_graph *path, int nb_path)
-{
-	int i;
-	int	j;
-	t_connex	*tmp_connex;
-
-	i = 0;
-	tmp_connex = NULL;
-	while (i < nb_path - 1)
-	{
-		j = i + 1;
-		while (j < nb_path)
-		{
-			if (len_path(path->array[i].next) > len_path(path->array[j].next))
-			{
-				tmp_connex = path->array[i].next;
-				path->array[i].next = path->array[j].next;
-				path->array[j].next = tmp_connex;
-			}
-			j++;	
-		}
-		i++;
-	}
-}
-
-
-void	reinit_graph(t_graph *graph)
-{
-	int i;
-	t_connex	*connex;
-
-	i = 0;
-	while (i < graph->nb_room)
-	{
-		connex = graph->array[i].next;
-		while (connex)
-		{
-			connex->in_path = 0;
-			connex = connex->next;
-		}
-		i++;
-	}
-}
-
-/*
-** Count how many operations are necessary to move all the ants in this graph.
+** Return how many operations are necessary to move all the ants in this graph.
+** The formulaused is (nb of ant + lenght of all valid paths) / nb of paths.
 */
 
 int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
@@ -181,17 +124,6 @@ int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
 	return (nb_op);
 }
 
-
-int		nb_paths(t_graph *path)
-{
-	int i;
-
-	i = 0;
-	while(path->array[i].next)
-	i++;
-	return(i);
-}
-
 /*
 ** Entry point of the algo.
 ** Implementation of a simplified Edmonds-Karp algorithm.
@@ -201,17 +133,15 @@ void    algo(t_anthill *anthill)
 {
 	t_graph		*path;
 	t_graph		*best_path;
-	anthill->nb_path = 0;
 	int nb_op;
 
+	anthill->nb_path = 0;
 	anthill->nb_op= 10000000;
 	nb_op = 0;
-	while (anthill->nb_ant > anthill->nb_path  && bfs(anthill))
+	while (anthill->nb_ant > anthill->nb_path && bfs(anthill))
 	{
 		add_flow(anthill);
-		
 		anthill->nb_path++;
-
 		reinit_graph(anthill->graph);
 		path = create_graph(anthill->nb_path);
 		fill_path(anthill, path, anthill->nb_path);
@@ -224,7 +154,7 @@ void    algo(t_anthill *anthill)
 		}
 		else
 			break;
-		ft_printf("ROUND :%d\n",anthill->nb_path);
+	/*	ft_printf("ROUND :%d\n",anthill->nb_path);
 		ft_putstr("GRAPH\n");
 		print_graph(anthill->graph);
 		ft_putstr("anthill\n");
@@ -234,11 +164,11 @@ void    algo(t_anthill *anthill)
 		ft_putchar('\n');
 		ft_putchar('\n');
 		ft_putchar('\n');
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 	}
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);
-	print_graph(best_path);
+	//print_graph(best_path);
 	print_sol(anthill, best_path);
 	//ft_putchar('\n');
 	//ft_putnbr(anthill->nb_op);

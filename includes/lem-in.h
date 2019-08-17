@@ -15,7 +15,6 @@
 
 # include "./libft/libft.h"
 
-
 typedef	struct s_connex
 {
 	int			room_id;
@@ -30,7 +29,6 @@ typedef struct			s_graph
 	int					nb_room;
 }						t_graph;
 
-
 typedef struct			s_edge
 {
 	int					src;
@@ -44,7 +42,6 @@ typedef struct	s_room
 	int 	id;
 	struct	s_room *next;
 	int 	in_path;
-	int 	tmp_in_path;
 	int		parent_id;
 	int		tmp_parent_id;
 	int		start;
@@ -96,6 +93,7 @@ void		print_anthill(t_anthill *anthill);
 
 t_connex	*new_connex(int dst);
 t_graph		*create_graph(int nb_room);
+void		reinit_graph(t_graph *graph);
 int			add_edge(t_graph *graph, t_edge *edge);
 int			add_edge_side(t_graph *graph, int src, int dst);
 void		print_graph(t_graph *graph);
@@ -132,8 +130,18 @@ void			algo(t_anthill *anthill);
 int 			len_path(t_connex *connex);
 
 /*
+********************************ALGO_UTILS***************************************
+*/
+
+t_room			*get_room(t_anthill *anthill, int id);
+int				len_path(t_connex *connex);
+int				nb_paths(t_graph *path);
+void			sort_path(t_graph *path, int nb_path);
+
+/*
 **********************************LEM_IN***************************************
 */
+
 void		lem_in(char *filename);
 
 
