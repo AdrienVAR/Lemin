@@ -15,9 +15,14 @@ t_qnode *new_node(int id)
     return (new);
 }*/
 
-t_queue* createqueue()
+t_queue* createqueue(t_anthill *anthill)
 {
-    t_queue* q = (t_queue*)malloc(sizeof( t_queue));
+    t_queue* q ;
+
+    (void)anthill;
+    if(!(q = (t_queue*)malloc(sizeof(t_queue))))
+        error_message();
+    garbage_collector(&(anthill->head_gar_c), q);
     q->front = q->rear = NULL;
     return q;
 }

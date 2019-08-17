@@ -20,12 +20,13 @@
 ** in case another room connected to this id is added.
 */
 
-t_connex	*new_connex(int dst)
+t_connex	*new_connex(t_anthill *anthill, int dst)
 {
 	t_connex	*connex;
 
 	if (!(connex = (t_connex*)malloc(sizeof(t_connex))))
 		return (NULL);
+	garbage_collector(&(anthill->head_gar_c), connex);
 	connex->room_id = dst;
 	connex->value = 0;
 	connex->in_path = 0;
@@ -38,16 +39,18 @@ t_connex	*new_connex(int dst)
 ** Each room_id has an adjacency list containing all its edges.
 */
 
-t_graph		*create_graph(int nb_room)
+t_graph		*create_graph(t_anthill *anthill, int nb_room)
 {
 	t_graph	*graph;
 	int		i;
 
 	if (!(graph = (t_graph*)malloc(sizeof(t_graph))))
 		return (NULL);
+	garbage_collector(&(anthill->head_gar_c), graph);
 	graph->nb_room = nb_room;
 	if (!(graph->array = (t_connex*)malloc(sizeof(t_connex) * (nb_room + 1))))
 		return (NULL);
+	garbage_collector(&(anthill->head_gar_c), graph->array);
 	i = 0;
 	while (i <= nb_room)
 	{
@@ -84,15 +87,15 @@ void	reinit_graph(t_graph *graph)
 ** Add edges in the adjacency of two room_ids, in both directions.
 */
 
-int			add_edge(t_graph *graph, t_edge *edge)
+int			add_edge(t_anthill *anthill, t_graph *graph, t_edge *edge)
 {
 	t_connex	*n_connex;
 
-	n_connex = new_connex(edge->dst);
+	n_connex = new_connex(anthill, edge->dst);
 	n_connex->next = graph->array[edge->src].next;
 	graph->array[edge->src].next = n_connex;
 
-	n_connex = new_connex(edge->src);
+	n_connex = new_connex(anthill, edge->src);
 	n_connex->next = graph->array[edge->dst].next;
 	graph->array[edge->dst].next = n_connex;
 	return (1);
@@ -102,12 +105,12 @@ int			add_edge(t_graph *graph, t_edge *edge)
 ** Add edges in the adjacency of one room_id, in one direction.
 */
 
-int			add_edge_side(t_graph *graph, int src, int dst)
+int			add_edge_side(t_anthill *anthill, t_graph *graph, int src, int dst)
 {
 	t_connex	*n_connex;
 	t_connex 	*actual;
 
-	n_connex = new_connex(dst);
+	n_connex = new_connex(anthill, dst);
 	actual = graph->array[src].next;
 	if (!actual)
 	{

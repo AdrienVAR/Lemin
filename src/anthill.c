@@ -33,15 +33,19 @@ void		free_anthill(t_anthill *anthill)
 t_anthill	*init_anthill(void)
 {
 	t_anthill	*anthill;
+	t_list		*head;
 
+	head = ft_lstnew(NULL, 0);
 	if (!(anthill = (t_anthill*)malloc(sizeof(t_anthill))))
 		return (NULL);
+	
 	anthill->nb_ant = 0;
 	anthill->nb_room = 0;
 	anthill->nb_in = 0;
 	anthill->nb_end = 0;
 	anthill->nb_path = 0;
 	anthill->l_room = NULL;
+	anthill->head_gar_c = head;
 	return (anthill);
 }
 

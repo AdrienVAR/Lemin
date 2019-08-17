@@ -43,23 +43,25 @@ static int num_command(char *line)
 ***********************Read and Parse Room*************************************
 */
 
-static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill)
+static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill,t_buff *buff)
 {
 	char	**name;
 	int		last_cmd;
 	int		cmd;
 
 	last_cmd = 0;
- 	while ((cmd = num_command(*line)) || is_room(*line))
+ 	while ((cmd = num_command(*line)) || is_room(anthill, *line))
 	{
-		if (is_room(*line))
+		if (is_room(anthill, *line))
 		{
 			name = ft_strsplit(*line,' ');
+			add_tab_gc(anthill, (void **)name);
 			add_room(anthill, name[0], last_cmd);
-			ft_putendl(*line);
+			fill_buff_str(buff, *line);
 		}	
 		if (cmd == 2 || cmd == 1)
-			ft_putendl(*line);
+			fill_buff_str(buff, *line);
+		free(*line);
 		get_next_line(fd, line);
 		last_cmd = cmd; 
 	}
@@ -70,7 +72,7 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill)
 ***********************Read and Parse Edge*************************************
 */
 
-void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
+void	read_and_parse_edge(int fd, char **line, t_anthill *anthill, t_buff *buff)
 {
 	t_edge	*edge;
 
@@ -79,49 +81,61 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill)
 	{
 		if (edge)
 		{
-			add_edge(anthill->graph,edge);
-			ft_putendl(*line);
-			free(edge);
+			add_edge(anthill, anthill->graph,edge);
+			fill_buff_str(buff, *line);
 		}
+		free(*line);
 		if (get_next_line(fd, line) <= 0)
 			return;
 		edge = NULL;
 	}
+	//free(line);
 }
 
 /*
 *********************Read and Parse Global*************************************
 */
 
-void	read_and_parse(int fd, t_anthill *anthill)
+void	read_and_parse(int fd, t_anthill *anthill,t_buff *buff)
 {
 	char	*line;
 
 	if (get_next_line(fd, &line) < 0)
 		error_message();
-	ft_putendl(line);
-	//check_ant(&line)
+	if (!check_ant(line))
+		error_message();
+	fill_buff_str(buff, line);
 	anthill->nb_ant = ft_atoi(line);
-
+	free(line);
 	if(get_next_line(fd, &line) < 0)
 		error_message();
-	read_and_parse_room(fd, &line, anthill);
+	read_and_parse_room(fd, &line, anthill, buff);
+	if (!is_edge(line, anthill))
+	{
+		free(line);
+		error_message();
+	}
 	create_tab_room(anthill);	
-	anthill->graph = create_graph(anthill->nb_room);
-	read_and_parse_edge(fd, &line, anthill);
-	//print_graph(anthill->graph);
+	anthill->graph = create_graph(anthill, anthill->nb_room);
+	read_and_parse_edge(fd, &line, anthill, buff);
+	write(1, buff, buff->i);
+	//get_next_line(-2, &line);
 }
 	
 void	lem_in(char *filename)
 {
 	int	fd;
+	t_buff buff;
 	t_anthill	*anthill;
 
+	init_buff(&buff);
 	anthill = init_anthill();	
 	if (!(fd = open_file(filename)))
 		error_message();
-	read_and_parse(fd, anthill);
+	read_and_parse(fd, anthill, &buff);
 	//print_anthill(anthill);
-	ft_putchar('\n');	
+	ft_putchar('\n');
 	algo(anthill);
+	free_gc(anthill->head_gar_c);
+	free(anthill);
 }

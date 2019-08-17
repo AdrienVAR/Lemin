@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
-#include <stdio.h>
+/*
 t_room			*init_room(void)
 {
 	t_room	*room;
@@ -23,8 +23,8 @@ t_room			*init_room(void)
 	room->name = "first";
 	return (room);
 }
-
-t_room			*new_room(char *name)
+*/
+t_room			*new_room(t_anthill *anthill, char *name)
 {
 	t_room	*room;
 	static int	i = -1;
@@ -33,6 +33,7 @@ t_room			*new_room(char *name)
 	room = (t_room*)malloc(sizeof(t_room));
 	if (room == NULL)
 		return (NULL);
+	garbage_collector(&(anthill->head_gar_c), room);
 	room->next = NULL;
 	room->name = name;
 	room->name_len = ft_strlen(name);
@@ -52,7 +53,7 @@ int				add_room(t_anthill *anthill, char *name, int cmd)
 	t_room *room;
 	t_room *actual;
 
-	if (!(room = new_room(name)))
+	if (!(room = new_room(anthill, name)))
 		return (0);
 	actual = anthill->l_room;
 	if (cmd == 1 )
@@ -70,8 +71,8 @@ int				add_room(t_anthill *anthill, char *name, int cmd)
 	anthill->nb_room = room->id + 1;
 	return (1);
 }
-
-int				is_room(char *str)
+/*
+int				is_room(t_anthill *anthill, char *str)
 {
 	int	i;
 	char **tab;
@@ -81,14 +82,44 @@ int				is_room(char *str)
 	if (str[i] == 'L')
 		return (0);
 	else
+	{
 		tab = ft_strsplit(str,' ');
+		garbage_collector(anthill->head_gar_c, tab);
+	}
 	while (tab[i])
+	{
+		garbage_collector(anthill->head_gar_c, tab[i]);
 		i++;
+	}
 	if (i <= 1)
 		return (0);
 	return (1);
-}
+}*/
 
+int				is_room(t_anthill *anthill, char *str)
+{
+	int	i;
+	char **tab;
+
+	i = 0;
+	if (str[i] == 'L')
+		return (0);
+	else
+	{
+		tab = ft_strsplit(str,' ');
+		garbage_collector(&(anthill->head_gar_c), tab);
+	}
+	while (tab[i])
+	{
+		garbage_collector(&(anthill->head_gar_c), tab[i]);
+		i++;
+	}
+	if (i != 3)
+		return (0);
+	if (is_known_room(tab[0],anthill) || !digit(tab[1]) || !digit(tab[2]))
+		return (0);
+	return (1);
+}
 
 int		create_tab_room(t_anthill *anthill)
 {
@@ -99,6 +130,7 @@ int		create_tab_room(t_anthill *anthill)
 	anthill->tab_room = (t_room*)malloc(sizeof(t_room) * anthill->nb_room);
 	if (!anthill->tab_room)
 		return (0);
+	garbage_collector(&(anthill->head_gar_c), anthill->tab_room);
 	id_room = anthill->nb_room;
 	actual = anthill->l_room;
 	while (actual)

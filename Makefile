@@ -1,12 +1,13 @@
 NAME = lem-in
 CC = gcc
-FLAGS = -g -fsanitize=address -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 SRC_DIR = src/
 LIB_DIR = includes/libft/
 
 SRC_FILES = main.c			\
 			print_utils.c	\
 			lem_in.c		\
+			parsing_utils.c \
 			room.c			\
 			edge.c			\
 			anthill.c		\
@@ -16,7 +17,8 @@ SRC_FILES = main.c			\
 			queue.c			\
 			ant.c			\
 			bfs.c			\
-			print.c				
+			print.c			\
+			garbage_collector.c	
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 

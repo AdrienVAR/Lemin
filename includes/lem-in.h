@@ -62,6 +62,7 @@ typedef struct s_anthill
 	int			nb_end;
 	int			nb_path;
 	int 		nb_op;
+	t_list		*head_gar_c;
 }				t_anthill;
 
 typedef	struct s_queue
@@ -91,11 +92,11 @@ void		print_anthill(t_anthill *anthill);
 *********************************GRAPH*****************************************
 */
 
-t_connex	*new_connex(int dst);
-t_graph		*create_graph(int nb_room);
+t_connex	*new_connex(t_anthill *anthill, int dst);
+t_graph		*create_graph(t_anthill *anthill, int nb_room);
 void		reinit_graph(t_graph *graph);
-int			add_edge(t_graph *graph, t_edge *edge);
-int			add_edge_side(t_graph *graph, int src, int dst);
+int			add_edge(t_anthill *anthill, t_graph *graph, t_edge *edge);
+int			add_edge_side(t_anthill *anthill, t_graph *graph, int src, int dst);
 void		print_graph(t_graph *graph);
 void		print_graph2(t_graph *graph);
 /*
@@ -103,16 +104,16 @@ void		print_graph2(t_graph *graph);
 */
 
 t_room		*init_room(void);
-t_room		*new_room(char *name);
+t_room		*new_room(t_anthill *anthill, char *name);
 int			add_room(t_anthill *anthill, char *name, int cmd);
-int			is_room(char *line);
+int			is_room(t_anthill *anthill, char *line);
 int			create_tab_room(t_anthill *anthill);
 
 /*
 ***********************************EDGE****************************************
 */
 
-t_edge			*create_edge(void);
+t_edge			*create_edge(t_anthill *anthill);
 t_room			*is_known_room(char *line, t_anthill *anthill);
 t_edge			*is_edge(char *line, t_anthill *anthill);
 
@@ -154,7 +155,7 @@ void		error_message(void);
 /*
 ***********************************QUEUE***************************************
 */
-t_queue*	createqueue();
+t_queue*	createqueue(t_anthill *anthill);
 void		enqueue(t_queue *q, t_room *room);
 t_room*		dequeue(t_queue *q);
 void		print_queue(t_queue *q);
@@ -174,5 +175,18 @@ void	move_ant(t_anthill *anthill, t_ant *tab_ant);
 
 void 	print_sol(t_anthill * anthill, t_graph *path);
 void	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len);
+
+/*
+********************************PARSING_UTILS***********************************
+*/
+int 	check_ant(char *line);
+int		digit(char *str);
+/*
+********************************GARBAGE_COLLECTOR***********************************
+*/
+
+void    garbage_collector(t_list **head, void *param);
+void    free_gc(t_list *head);
+void    add_tab_gc(t_anthill *anthill, void **tab);
 
 #endif

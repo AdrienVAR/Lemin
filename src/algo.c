@@ -91,7 +91,7 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 			{
 				room = get_room(anthill, neighbour->room_id);
 				room->in_path = 1;
-				add_edge_side(path, i ,neighbour->room_id);
+				add_edge_side(anthill, path, i ,neighbour->room_id);
 				neighbour->in_path = 1;
 				neighbour = anthill->graph->array[neighbour->room_id].next;
 			}
@@ -143,13 +143,13 @@ void    algo(t_anthill *anthill)
 		add_flow(anthill);
 		anthill->nb_path++;
 		reinit_graph(anthill->graph);
-		path = create_graph(anthill->nb_path);
+		path = create_graph(anthill, anthill->nb_path);
 		fill_path(anthill, path, anthill->nb_path);
 		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) < anthill->nb_op)
 		{
 			anthill->nb_op = calc_nb_op(path, anthill->nb_ant, anthill->nb_path);
 			reinit_graph(anthill->graph);
-			best_path = create_graph(anthill->nb_path);
+			best_path = create_graph(anthill, anthill->nb_path);
 			fill_path(anthill, best_path, anthill->nb_path);
 		}
 		else

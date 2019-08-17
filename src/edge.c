@@ -12,16 +12,15 @@
 
 #include "../includes/lem-in.h"
 
-t_edge		*create_edge(void)
+t_edge		*create_edge(t_anthill *anthill)
 {
 	t_edge	*new_edge;
 	
 	if (!(new_edge = (t_edge*)malloc(sizeof(t_edge))))
 		return (NULL);
+	garbage_collector(&(anthill->head_gar_c), new_edge);
 	return (new_edge);
 }
-
-
 
 /*
 **this function look into all room in l_room and look if a room with the same
@@ -53,7 +52,7 @@ t_edge		*is_edge(char *line, t_anthill *anthill)
 	int		len;
 	t_edge	*edge;
 	
-	edge = create_edge();
+	edge = create_edge(anthill);
 	if (!(room = is_known_room(line, anthill)))
 		return (NULL);
 	len = room->name_len;

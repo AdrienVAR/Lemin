@@ -79,6 +79,11 @@ int			get_next_line(const int fd, char **line)
 	static char	*str[4867];
 
 	ret_value = 0;
+	/*if (fd == -2)
+	{
+		free(str);
+		return 1;
+	}*/
 	if (line == NULL || fd < 0 || fd > 4867 || BUFF_SIZE < 1)
 		return (-1);
 	if (str[fd])

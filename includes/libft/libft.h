@@ -23,6 +23,7 @@ typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
+	
 	struct s_list	*next;
 }					t_list;
 
@@ -99,7 +100,7 @@ int					get_next_line(const int fd, char **line);
 # include <stdio.h>
 # include <limits.h>
 
-# define BUFF_SIZE 500
+# define BUFF_SIZE 50000
 # define MINUS 0
 # define PLUS 1
 # define HASH 2
@@ -138,6 +139,7 @@ void				init_id(t_id *id);
 
 void				init_buff(t_buff *buff);
 void				fill_buff(t_buff *buff, char c);
+void				fill_buff_str(t_buff *buff, char *str);
 void				print_d(t_id *id, t_buff *buff, long nb);
 void				print_u(t_id *id, t_buff *buff, long nb);
 void				print_o(t_id *id, t_buff *buff, uintmax_t nb);

@@ -34,3 +34,14 @@ void	fill_buff(t_buff *buffer, char c)
 	buffer->buff[buffer->i] = c;
 	buffer->i++;
 }
+
+void	fill_buff_str(t_buff *buffer, char *str)
+{
+	int	i;
+
+	i = -1;
+
+	while (str[++i])
+		fill_buff(buffer, str[i]);
+	fill_buff(buffer, '\n');
+}

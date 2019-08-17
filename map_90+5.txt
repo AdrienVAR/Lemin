@@ -1,4 +1,5 @@
 180
+#Here is the number of lines required: 90
 ##start
 Hbd8 3 3
 ##end
@@ -3223,7 +3224,12 @@ Jva3-Nlb7
 Cuy6-Xnn6
 O_w3-Yga7
 Pnd7-Elz9
-Iqh4HGËPÿ  ð&À‰  ð&À   PIËPÿ  õ   ð&À‰
+Iqh4-Dkb4
+Jx_3-Nhq9
+Pqo6-Qyi4
+Nh_0-F_f8
+Zvc6-Jue8
+
 L1-Xqp5 L2-Khd4 L3-Zkv4 L4-Roa2 L5-Xcc6 L6-S__9 L7-Qij0 
 L1-Dpa1 L2-Vom9 L3-Jav0 L4-Ksw4 L5-Roi9 L6-Ndp1 L7-Oiq1 L8-Xqp5 L9-Khd4 L10-Zkv4 L11-Roa2 L12-Xcc6 L13-S__9 L14-Qij0 
 L1-Wpc3 L2-Yhx5 L3-Zts2 L4-Sgy9 L5-Iaq7 L6-Cfn2 L7-Wmg1 L8-Dpa1 L9-Vom9 L10-Jav0 L11-Ksw4 L12-Roi9 L13-Ndp1 L14-Oiq1 L15-Xqp5 L16-Khd4 L17-Zkv4 L18-Roa2 L19-Xcc6 L20-S__9 L21-Qij0 

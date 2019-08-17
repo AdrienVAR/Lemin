@@ -90,7 +90,7 @@ int bfs(t_anthill *anthill)
     static int     round = 0;
 
     round++;
-    q = createqueue();
+    q = createqueue(anthill);
     enqueue(q, &anthill->tab_room[anthill->id_start]);
     anthill->tab_room[anthill->id_start].visited=round;
     while (q->front != NULL)
