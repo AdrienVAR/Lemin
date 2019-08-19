@@ -13,6 +13,8 @@
 #include <fcntl.h>
 #include "../includes/lem-in.h"
 
+
+
 /*
 **	Check if the line is a valid command and return value corresponding
 ** 	to the command
@@ -65,7 +67,7 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill,t_buff *b
 void	read_and_parse_edge(int fd, char **line, t_anthill *anthill, t_buff *buff)
 {
 	t_edge	*edge;
-
+	int		ret;
 
 	while (num_command(*line) || (edge = is_edge(*line, anthill)))
 	{
@@ -75,11 +77,13 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill, t_buff *buff)
 			fill_buff_str(buff, *line);
 		}
 		free(*line);
-		if (get_next_line(fd, line) < 0)
+		if ((ret = get_next_line(fd, line)) < 0)
+			error_message(anthill);
+		if (ret == 0)
 			return;
 		edge = NULL;
 	}
-	//free(line);
+	free(*line);
 }
 
 /*
@@ -108,10 +112,10 @@ void	read_and_parse(int fd, t_anthill *anthill,t_buff *buff)
 	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill, anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill, buff);
-	free(line);
+	if (!bfs(anthill))
+		error_message(anthill);
 	write(1, buff, buff->i);
 	get_next_line(-2, &line);
-//	free(line);
 }
 	
 void	lem_in(char *filename)

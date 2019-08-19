@@ -7,8 +7,6 @@ E_y1 7 7
 F_f8 9 9
 Qyi4 12 12
 Fvn1 16 16
-##start
-Fvn9 17 16
 Qws5 18 18
 Hjx8 22 22
 Ajo1 24 24

@@ -22,7 +22,8 @@
 # include <stdio.h>
 # include <limits.h>
 
-# define BUFF_SIZE 50000
+# define BUFF_SIZE 500000
+# define BUFF_SIZE_GNL 500
 # define MINUS 0
 # define PLUS 1
 # define HASH 2

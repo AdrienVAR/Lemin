@@ -52,7 +52,7 @@ static int	read_bsize(const int fd, char **line, char **str, char *buf)
 	int		ret;
 	int		i;
 
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	while ((ret = read(fd, buf, BUFF_SIZE_GNL)) > 0)
 	{
 		buf[ret] = '\0';
 		if (*str)
@@ -75,7 +75,7 @@ static int	read_bsize(const int fd, char **line, char **str, char *buf)
 int			get_next_line(const int fd, char **line)
 {
 	int			ret_value;
-	char		buf[BUFF_SIZE + 1];
+	char		buf[BUFF_SIZE_GNL + 1];
 	static char	*str[4867];
 
 	ret_value = 0;
@@ -89,7 +89,7 @@ int			get_next_line(const int fd, char **line)
 		//free(line);
 		return (1);
 	}
-	if (line == NULL || fd < 0 || fd > 4867 || BUFF_SIZE < 1)
+	if (line == NULL || fd < 0 || fd > 4867 || BUFF_SIZE_GNL < 1)
 		return (-1);
 	if (str[fd])
 	{
