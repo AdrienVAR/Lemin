@@ -1,0 +1,1 @@
+generator/generator --big-superposition > maptest2.txt ;valgrind ./lem-in maptest2.txt > sortie2.txt ;verifier/verifier < sortie2.txt

@@ -150,7 +150,7 @@ void		lem_in(char *filename);
 ***********************************PRINT_UTILS**********************************
 */
 
-void		error_message(void);
+void		error_message(t_anthill *anthill);
 
 /*
 ***********************************QUEUE***************************************
@@ -158,7 +158,6 @@ void		error_message(void);
 t_queue*	createqueue(t_anthill *anthill);
 void		enqueue(t_queue *q, t_room *room);
 t_room*		dequeue(t_queue *q);
-void		print_queue(t_queue *q);
 
 /*
 ****************************ANT************************************************
@@ -167,7 +166,7 @@ void		print_queue(t_queue *q);
 void	print_all_ant(t_anthill *anthill, t_ant *tab_ant);
 void	print_ant(t_anthill *anthill, t_ant *tab_ant, int id_ant);
 void 	create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path);
-void	move_ant(t_anthill *anthill, t_ant *tab_ant);
+void	move_ant(t_anthill *anthill, t_ant *ant, t_ant *tab_ant, int i);
 
 /*
 **********************************PRINT****************************************
@@ -181,6 +180,7 @@ void	print_round(t_anthill *anthill, t_graph *path,t_ant *tab_ant, int *path_len
 */
 int 	check_ant(char *line);
 int		digit(char *str);
+int		open_file(char *filename);
 /*
 ********************************GARBAGE_COLLECTOR***********************************
 */

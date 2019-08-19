@@ -6,13 +6,23 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:31:47 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/17 17:05:26 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 10:57:44 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
+#include <fcntl.h>
 
-int check_ant(char *line)
+int open_file(char *filename)
+{
+	int fd;
+
+	if (!(fd = open(filename, O_RDONLY)))
+		return (-1);
+	return (fd);
+}
+
+int		check_ant(char *line)
 {
 	int	i;
 

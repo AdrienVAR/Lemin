@@ -30,6 +30,7 @@ void create_ant(t_anthill *anthill, t_ant *tab_ant,t_graph *path, int num_path)
 
 	//tab_ant[i - 1].connex = path->array[(i - 1) % anthill->nb_path].next;
 	tab_ant[i - 1].is_in = 1;
+	print_ant(anthill, tab_ant, anthill->nb_in);
 }
 
 void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
@@ -52,12 +53,14 @@ void print_all_ant(t_anthill *anthill, t_ant *tab_ant)
 ** Move an ant to the next room, and out of the anthill if reach the end.
 */
 
-void	move_ant(t_anthill *anthill, t_ant *ant)
+void	move_ant(t_anthill *anthill, t_ant *ant, t_ant *tab_ant, int i)
 {
+	
 	ant->connex = ant->connex->next;
 	if (ant->connex->room_id == anthill->id_end)
 	{
 		ant->is_in = 0;
 		anthill->nb_end++;
 	}
+	print_ant(anthill, tab_ant, i + 1);
 }

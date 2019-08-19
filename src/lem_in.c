@@ -13,16 +13,6 @@
 #include <fcntl.h>
 #include "../includes/lem-in.h"
 
-static int open_file(char *filename)
-{
-	int fd;
-
-	if (!(fd = open(filename, O_RDONLY)))
-		return (-1);
-	return (fd);
-}
-
-
 /*
 **	Check if the line is a valid command and return value corresponding
 ** 	to the command
@@ -85,7 +75,7 @@ void	read_and_parse_edge(int fd, char **line, t_anthill *anthill, t_buff *buff)
 			fill_buff_str(buff, *line);
 		}
 		free(*line);
-		if (get_next_line(fd, line) <= 0)
+		if (get_next_line(fd, line) < 0)
 			return;
 		edge = NULL;
 	}
@@ -101,25 +91,27 @@ void	read_and_parse(int fd, t_anthill *anthill,t_buff *buff)
 	char	*line;
 
 	if (get_next_line(fd, &line) < 0)
-		error_message();
+		error_message(anthill);
 	if (!check_ant(line))
-		error_message();
+		error_message(anthill);
 	fill_buff_str(buff, line);
 	anthill->nb_ant = ft_atoi(line);
 	free(line);
 	if(get_next_line(fd, &line) < 0)
-		error_message();
+		error_message(anthill);
 	read_and_parse_room(fd, &line, anthill, buff);
 	if (!is_edge(line, anthill))
 	{
 		free(line);
-		error_message();
+		error_message(anthill);
 	}
 	create_tab_room(anthill);	
 	anthill->graph = create_graph(anthill, anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill, buff);
+	free(line);
 	write(1, buff, buff->i);
-	//get_next_line(-2, &line);
+	get_next_line(-2, &line);
+//	free(line);
 }
 	
 void	lem_in(char *filename)
@@ -131,7 +123,7 @@ void	lem_in(char *filename)
 	init_buff(&buff);
 	anthill = init_anthill();	
 	if (!(fd = open_file(filename)))
-		error_message();
+		error_message(anthill);
 	read_and_parse(fd, anthill, &buff);
 	//print_anthill(anthill);
 	ft_putchar('\n');

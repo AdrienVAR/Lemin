@@ -40,7 +40,6 @@ void	fill_buff_str(t_buff *buffer, char *str)
 	int	i;
 
 	i = -1;
-
 	while (str[++i])
 		fill_buff(buffer, str[i]);
 	fill_buff(buffer, '\n');
