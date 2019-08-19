@@ -6,14 +6,14 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:31:47 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 10:57:44 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 13:04:47 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
 #include <fcntl.h>
 
-int open_file(char *filename)
+int	open_file(char *filename)
 {
 	int fd;
 
@@ -22,7 +22,7 @@ int open_file(char *filename)
 	return (fd);
 }
 
-int		check_ant(char *line)
+int	check_ant(char *line)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int		check_ant(char *line)
 	return (1);
 }
 
-int		digit(char *str)
+int	digit(char *str)
 {
 	int	i;
 
