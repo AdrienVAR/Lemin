@@ -16,12 +16,12 @@
 ** Display error message
 */
 
-void	error_message(t_anthill *anthill)
+void	error_message(t_anthill *anthill, char *str)
 {
 	free_gc(anthill->head_gar_c);
 	free(anthill);
-	write(1, "ERROR\n", 6);
-	exit(1);
+	ft_putstr(str);
+	exit(EXIT_FAILURE);
 }
 
 /*

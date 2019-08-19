@@ -62,6 +62,7 @@ typedef struct s_anthill
 	int			nb_end;
 	int			nb_path;
 	int 		nb_op;
+	int			round;
 	t_list		*head_gar_c;
 }				t_anthill;
 
@@ -143,14 +144,14 @@ void			sort_path(t_graph *path, int nb_path);
 **********************************LEM_IN***************************************
 */
 
-void		lem_in(char *filename);
+void		lem_in(void);
 
 
 /*
 ***********************************PRINT_UTILS**********************************
 */
 
-void		error_message(t_anthill *anthill);
+void		error_message(t_anthill *anthill, char *str);
 
 /*
 ***********************************QUEUE***************************************

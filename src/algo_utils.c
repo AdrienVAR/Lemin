@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 11:11:03 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/17 11:11:06 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 14:33:19 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,31 @@
 ** Access to a room from the connections adjacency list
 */
 
-t_room *get_room(t_anthill *anthill, int id)
+t_room	*get_room(t_anthill *anthill, int id)
 {
 	t_room *room;
 
 	room = &anthill->tab_room[id];
-	return(room);
+	return (room);
 }
 
 /*
 ** Return the number of rooms from start to end in this path
 */
 
-int len_path(t_connex *connex)
+int		len_path(t_connex *connex)
 {
-    t_connex *actual;
-    int len;
+	t_connex	*actual;
+	int			len;
 
-    actual = connex;
-    len = 0;
-    while(actual)
-    {
-        actual = actual->next;
-        len++;
-    }
-    return (len);
+	actual = connex;
+	len = 0;
+	while (actual)
+	{
+		actual = actual->next;
+		len++;
+	}
+	return (len);
 }
 
 /*
@@ -52,9 +52,9 @@ int		nb_paths(t_graph *path)
 	int i;
 
 	i = 0;
-	while(path->array[i].next)
+	while (path->array[i].next)
 		i++;
-	return(i);
+	return (i);
 }
 
 /*
@@ -63,8 +63,8 @@ int		nb_paths(t_graph *path)
 
 void	sort_path(t_graph *path, int nb_path)
 {
-	int i;
-	int	j;
+	int			i;
+	int			j;
 	t_connex	*tmp_connex;
 
 	i = 0;
@@ -80,7 +80,7 @@ void	sort_path(t_graph *path, int nb_path)
 				path->array[i].next = path->array[j].next;
 				path->array[j].next = tmp_connex;
 			}
-			j++;	
+			j++;
 		}
 		i++;
 	}

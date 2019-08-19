@@ -22,7 +22,7 @@ t_queue		*createqueue(t_anthill *anthill)
 
 	(void)anthill;
 	if (!(q = (t_queue*)malloc(sizeof(t_queue))))
-		error_message(anthill);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), q);
 	q->front = NULL;
 	q->rear = NULL;

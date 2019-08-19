@@ -53,7 +53,8 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill,
 		if (cmd == 2 || cmd == 1)
 			fill_buff_str(buff, *line);
 		free(*line);
-		get_next_line(fd, line);
+		if (get_next_line(fd, line) <= 0)
+			error_message(anthill, "ERROR\n");
 		last_cmd = cmd;
 	}
 	return (1);
@@ -78,7 +79,7 @@ void		read_and_parse_edge(int fd, char **line, t_anthill *anthill,
 		}
 		free(*line);
 		if ((ret = get_next_line(fd, line)) < 0)
-			error_message(anthill);
+			error_message(anthill, "ERROR\n");
 		if (ret == 0)
 			return ;
 		edge = NULL;
@@ -94,31 +95,32 @@ void		read_and_parse(int fd, t_anthill *anthill, t_buff *buff)
 {
 	char	*line;
 
-	if (get_next_line(fd, &line) < 0)
-		error_message(anthill);
+	if (get_next_line(fd, &line) <=0)
+		error_message(anthill, "ERROR\n");
 	if (!check_ant(line))
-		error_message(anthill);
+		error_message(anthill, "ERROR\n");
 	fill_buff_str(buff, line);
-	anthill->nb_ant = ft_atoi(line);
+	if((anthill->nb_ant = ft_atoi(line)) <= 0)
+		error_message(anthill, "ERROR\n");
 	free(line);
-	if (get_next_line(fd, &line) < 0)
-		error_message(anthill);
+	if (get_next_line(fd, &line) <= 0)
+		error_message(anthill, "ERROR\n");
 	read_and_parse_room(fd, &line, anthill, buff);
 	if (!is_edge(line, anthill))
 	{
 		free(line);
-		error_message(anthill);
+		error_message(anthill, "ERROR\n");
 	}
 	create_tab_room(anthill);
 	anthill->graph = create_graph(anthill, anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill, buff);
 	if (!bfs(anthill))
-		error_message(anthill);
+		error_message(anthill, "ERROR\n");
 	write(1, buff, buff->i);
 	get_next_line(-2, &line);
 }
 
-void		lem_in(char *filename)
+void		lem_in(void)
 {
 	int			fd;
 	t_buff		buff;
@@ -126,8 +128,7 @@ void		lem_in(char *filename)
 
 	init_buff(&buff);
 	anthill = init_anthill();
-	if (!(fd = open_file(filename)))
-		error_message(anthill);
+	fd = 0;
 	read_and_parse(fd, anthill, &buff);
 	ft_putchar('\n');
 	algo(anthill);

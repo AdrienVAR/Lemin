@@ -12,9 +12,8 @@
 
 #include "../includes/lem-in.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	argc = 2;
-	lem_in(argv[1]);
+	lem_in();
 	return (0);
 }

@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
-#include <fcntl.h>
-
-int	open_file(char *filename)
-{
-	int fd;
-
-	if (!(fd = open(filename, O_RDONLY)))
-		return (-1);
-	return (fd);
-}
 
 int	check_ant(char *line)
 {

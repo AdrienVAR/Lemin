@@ -24,6 +24,7 @@ void	print_round(t_anthill *anthill, t_graph *path, t_ant *tab_ant,
 	static	int	round = 0;
 
 	i = 0;
+	
 	while (i < anthill->nb_in)
 	{
 		if (tab_ant[i].is_in)
@@ -59,6 +60,7 @@ void	print_sol(t_anthill *anthill, t_graph *path)
 	i = -1;
 	while (++i < anthill->nb_path)
 	{
+		
 		path_len[i] = len_path(path->array[i].next);
 		path_nb_ant[i] = anthill->nb_op - (path_len[i] - 1);
 	}

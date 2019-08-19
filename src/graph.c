@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/13 14:42:56 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/19 13:55:43 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 ** Create a connection from src to a room.
 ** Each connection is assigned the id of the connected room, a flow value,
-** a bool to check if this connection is a path in the algo, and a pointer 
+** a bool to check if this connection is a path in the algo, and a pointer
 ** in case another room connected to this id is added.
 */
 
@@ -65,9 +65,9 @@ t_graph		*create_graph(t_anthill *anthill, int nb_room)
 ** for a valid path.
 */
 
-void	reinit_graph(t_graph *graph)
+void		reinit_graph(t_graph *graph)
 {
-	int i;
+	int			i;
 	t_connex	*connex;
 
 	i = 0;
@@ -94,7 +94,6 @@ int			add_edge(t_anthill *anthill, t_graph *graph, t_edge *edge)
 	n_connex = new_connex(anthill, edge->dst);
 	n_connex->next = graph->array[edge->src].next;
 	graph->array[edge->src].next = n_connex;
-
 	n_connex = new_connex(anthill, edge->src);
 	n_connex->next = graph->array[edge->dst].next;
 	graph->array[edge->dst].next = n_connex;
@@ -108,14 +107,14 @@ int			add_edge(t_anthill *anthill, t_graph *graph, t_edge *edge)
 int			add_edge_side(t_anthill *anthill, t_graph *graph, int src, int dst)
 {
 	t_connex	*n_connex;
-	t_connex 	*actual;
+	t_connex	*actual;
 
 	n_connex = new_connex(anthill, dst);
 	actual = graph->array[src].next;
 	if (!actual)
 	{
 		graph->array[src].next = n_connex;
-		return 1;
+		return (1);
 	}
 	while (actual && actual->next)
 		actual = actual->next;

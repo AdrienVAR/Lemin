@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/13 14:50:07 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/19 14:27:30 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 /*
 ** Search the parent_id of a room in its connection adjacency list and reduce
-** this connection's flow value by 1. 
+** this connection's flow value by 1.
 ** Search the id from which the room is parent in its connection adjacency list
 ** and increase this connection's flow value by 1.
 */
 
-void  actualize_connex(t_anthill *anthill, int id, int parent_id)
+void	actualize_connex(t_anthill *anthill, int id, int parent_id)
 {
 	t_connex *actual;
-	actual = anthill->graph->array[id].next;
 
-	while(actual)
+	actual = anthill->graph->array[id].next;
+	while (actual)
 	{
 		if (actual->room_id == parent_id)
 		{
 			actual->value--;
-			break;
+			break ;
 		}
 		actual = actual->next;
-	} 
+	}
 	actual = anthill->graph->array[parent_id].next;
-	while(actual)
+	while (actual)
 	{
 		if (actual->room_id == id)
 		{
 			actual->value++;
-			break;
+			break ;
 		}
 		actual = actual->next;
 	}
@@ -48,22 +48,20 @@ void  actualize_connex(t_anthill *anthill, int id, int parent_id)
 /*
 ** From end room to start room, through the parent_id allocated by bfs
 ** add a flow of +1 from parent_id to id and a flow of -1 in the opposite
-** direction. 
+** direction.
 */
 
-void    add_flow(t_anthill *anthill)
+void	add_flow(t_anthill *anthill)
 {
-	t_room *room;
-	int     id;
-	int     parent_id;
+	t_room	*room;
+	int		id;
+	int		parent_id;
 
 	room = &anthill->tab_room[anthill->id_end];
 	id = room->id;
 	while (id != anthill->id_start)
 	{
 		room = &anthill->tab_room[id];
-		//room->in_path = 1;
-		//room->parent_id = room->tmp_parent_id;
 		parent_id = room->parent_id;
 		actualize_connex(anthill, id, parent_id);
 		id = parent_id;
@@ -75,11 +73,11 @@ void    add_flow(t_anthill *anthill)
 ** adjacency list.
 */
 
-void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
+void	fill_path(t_anthill *anthill, t_graph *path, int nb_path)
 {
-	int i;
-	t_connex 	*neighbour;
-	t_room 		*room;
+	int			i;
+	t_connex	*neighbour;
+	t_room		*room;
 
 	i = 0;
 	while (i < nb_path)
@@ -91,7 +89,7 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 			{
 				room = get_room(anthill, neighbour->room_id);
 				room->in_path = 1;
-				add_edge_side(anthill, path, i ,neighbour->room_id);
+				add_edge_side(anthill, path, i, neighbour->room_id);
 				neighbour->in_path = 1;
 				neighbour = anthill->graph->array[neighbour->room_id].next;
 			}
@@ -107,7 +105,7 @@ void	fill_path(t_anthill *anthill,t_graph *path,int nb_path)
 ** The formulaused is (nb of ant + lenght of all valid paths) / nb of paths.
 */
 
-int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
+int		calc_nb_op(t_graph *path, int nb_ant, int nb_path)
 {
 	int nb_op;
 	int len_paths;
@@ -115,7 +113,7 @@ int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
 
 	i = 0;
 	len_paths = 0;
-	while(i < nb_path)
+	while (i < nb_path)
 	{
 		len_paths += len_path(path->array[i].next);
 		i++;
@@ -129,47 +127,37 @@ int calc_nb_op(t_graph *path, int nb_ant, int nb_path)
 ** Implementation of a simplified Edmonds-Karp algorithm.
 */
 
-void    algo(t_anthill *anthill)
+void	algo(t_anthill *anthill)
 {
 	t_graph		*path;
 	t_graph		*best_path;
-	int nb_op;
+	int			nb_op;
 
 	anthill->nb_path = 0;
-	anthill->nb_op= 10000000;
+	anthill->nb_op = 10000000;
 	nb_op = 0;
 	while (anthill->nb_ant > anthill->nb_path && bfs(anthill))
 	{
+		
 		add_flow(anthill);
 		anthill->nb_path++;
 		reinit_graph(anthill->graph);
 		path = create_graph(anthill, anthill->nb_path);
 		fill_path(anthill, path, anthill->nb_path);
-		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) < anthill->nb_op)
+		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) <
+		anthill->nb_op)
 		{
-			anthill->nb_op = calc_nb_op(path, anthill->nb_ant, anthill->nb_path);
+			anthill->nb_op = calc_nb_op(path, anthill->nb_ant,
+			anthill->nb_path);
 			reinit_graph(anthill->graph);
 			best_path = create_graph(anthill, anthill->nb_path);
 			fill_path(anthill, best_path, anthill->nb_path);
 		}
 		else
-			break;
-	/*	ft_printf("ROUND :%d\n",anthill->nb_path);
-		ft_putstr("GRAPH\n");
-		print_graph(anthill->graph);
-		ft_putstr("anthill\n");
-		print_anthill(anthill);
-		ft_putstr("PATH\n");
-		print_graph2(path);
-		ft_putchar('\n');
-		ft_putchar('\n');
-		ft_putchar('\n');
-		ft_putchar('\n');*/
+			break ;
 	}
 	anthill->nb_path = nb_paths(best_path);
+	
 	sort_path(best_path, anthill->nb_path);
-	//print_graph(best_path);
 	print_sol(anthill, best_path);
-	//ft_putchar('\n');
-	//ft_putnbr(anthill->nb_op);
 }
