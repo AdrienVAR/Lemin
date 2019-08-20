@@ -21,6 +21,7 @@ void	error_message(t_anthill *anthill, char *str)
 	free_gc(anthill->head_gar_c);
 	free(anthill);
 	ft_putstr(str);
+	sleep(3);
 	exit(EXIT_FAILURE);
 }
 
@@ -30,6 +31,15 @@ void	error_message_pars(t_anthill *anthill, char *str, char *line)
 	free(anthill);
 	ft_putstr(str);
 	free(line);
+	get_next_line(-2, &line);
+	exit(EXIT_FAILURE);
+}
+
+void	error_message_eof(t_anthill *anthill, char *str, char *line)
+{
+	free_gc(anthill->head_gar_c);
+	free(anthill);
+	ft_putstr(str);
 	get_next_line(-2, &line);
 	exit(EXIT_FAILURE);
 }

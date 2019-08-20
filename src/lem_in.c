@@ -45,7 +45,8 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill,
 	{
 		if (is_room(anthill, *line))
 		{
-			name = ft_strsplit(*line, ' ');
+			if (!(name = ft_strsplit(*line, ' ')))
+				error_message_pars(anthill, "MALLOC_ERROR\n", *line);
 			add_tab_gc(anthill, (void **)name);
 			add_room(anthill, name[0], last_cmd);
 			fill_buff_str(buff, *line);
@@ -54,11 +55,8 @@ static	int	read_and_parse_room(int fd, char **line, t_anthill *anthill,
 			fill_buff_str(buff, *line);
 		free(*line);
 		if (get_next_line(fd, line) <= 0)
-		{
-		//	free(*line);
-			error_message(anthill, "ERROR\n");
-		}
-		last_cmd = cmd;
+			error_message_eof(anthill, "ERROR\n", *line);
+		last_cmd = (cmd != 3) ? cmd : last_cmd;
 	}
 	if (anthill->id_start == -1 || anthill->id_end == -1)
 		error_message_pars(anthill, "ERROR\n", *line);
@@ -109,22 +107,16 @@ void		read_and_parse(int fd, t_anthill *anthill, t_buff *buff)
 			error_message_pars(anthill, "ERROR\n", line);
 	}
 	if (!check_ant(line))
-		error_message_pars(anthill, "ERROR\n", line);		
+		error_message_pars(anthill, "ERROR\n", line);
 	fill_buff_str(buff, line);
 	if ((anthill->nb_ant = ft_atoi(line)) <= 0)
-	{
-		//free(line);
 		error_message_pars(anthill, "ERROR\n", line);
-	}
 	free(line);
 	if (get_next_line(fd, &line) <= 0)
 		error_message_pars(anthill, "ERROR\n", line);
 	read_and_parse_room(fd, &line, anthill, buff);
 	if (!is_edge(line, anthill))
-	{
-		free(line);
 		error_message_pars(anthill, "ERROR\n", line);
-	}
 	create_tab_room(anthill);
 	anthill->graph = create_graph(anthill, anthill->nb_room);
 	read_and_parse_edge(fd, &line, anthill, buff);

@@ -35,14 +35,14 @@ t_room		*is_known_room_get(char *line, t_anthill *anthill)
 	actual = anthill->l_room;
 	while (actual)
 	{
-		if (!ft_strncmp(line, actual->name,actual->name_len))
+		if (!ft_strncmp(line, actual->name, actual->name_len))
 			return (actual);
 		actual = actual->next;
 	}
 	return (NULL);
 }
 
-int		is_known_room(char *line, t_anthill *anthill)
+int			is_known_room(char *line, t_anthill *anthill)
 {
 	t_room *actual;
 

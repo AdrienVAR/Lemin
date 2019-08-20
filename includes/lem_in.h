@@ -151,6 +151,7 @@ void			lem_in(void);
 
 void			error_message(t_anthill *anthill, char *str);
 void			error_message_pars(t_anthill *anthill, char *str, char *line);
+void			error_message_eof(t_anthill *anthill, char *str, char *line);
 
 /*
 ***********************************QUEUE***************************************

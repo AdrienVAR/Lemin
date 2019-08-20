@@ -69,7 +69,8 @@ int		is_room(t_anthill *anthill, char *str)
 		return (0);
 	else
 	{
-		tab = ft_strsplit(str, ' ');
+		if (!(tab = ft_strsplit(str, ' ')))
+			error_message_pars(anthill, "MALLOC ERROR\n", str);
 		garbage_collector(&(anthill->head_gar_c), tab);
 	}
 	while (tab[i])
@@ -80,11 +81,7 @@ int		is_room(t_anthill *anthill, char *str)
 	if (i != 3)
 		return (0);
 	if (is_known_room(tab[0], anthill) || !digit(tab[1]) || !digit(tab[2]))
-	{
-	//	ft_printf("\n  tab[1] :%d \n", ft_atoi(tab[1]));	
-	//	ft_printf("\n  line : %s known room :%d tab[1] :%d tab[2] :%d\n",str,is_known_room(tab[0], anthill), digit(tab[1]), digit(tab[2]));
 		return (0);
-	}
 	return (1);
 }
 
