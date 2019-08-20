@@ -6,11 +6,11 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 11:11:03 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 14:33:19 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:04 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 /*
 ** Access to a room from the connections adjacency list

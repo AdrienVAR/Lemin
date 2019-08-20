@@ -6,11 +6,11 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 14:27:30 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:00 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 /*
 ** Search the parent_id of a room in its connection adjacency list and reduce
@@ -131,14 +131,9 @@ void	algo(t_anthill *anthill)
 {
 	t_graph		*path;
 	t_graph		*best_path;
-	int			nb_op;
 
-	anthill->nb_path = 0;
-	anthill->nb_op = 10000000;
-	nb_op = 0;
 	while (anthill->nb_ant > anthill->nb_path && bfs(anthill))
 	{
-		
 		add_flow(anthill);
 		anthill->nb_path++;
 		reinit_graph(anthill->graph);
@@ -157,7 +152,6 @@ void	algo(t_anthill *anthill)
 			break ;
 	}
 	anthill->nb_path = nb_paths(best_path);
-	
 	sort_path(best_path, anthill->nb_path);
 	print_sol(anthill, best_path);
 }

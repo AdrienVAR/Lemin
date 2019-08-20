@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:08:54 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/09 16:07:53 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:12:36 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 t_room	*new_room(t_anthill *anthill, char *name)
 {
@@ -20,7 +20,7 @@ t_room	*new_room(t_anthill *anthill, char *name)
 	i++;
 	room = (t_room*)malloc(sizeof(t_room));
 	if (room == NULL)
-		return (NULL);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), room);
 	room->next = NULL;
 	room->name = name;
@@ -80,7 +80,11 @@ int		is_room(t_anthill *anthill, char *str)
 	if (i != 3)
 		return (0);
 	if (is_known_room(tab[0], anthill) || !digit(tab[1]) || !digit(tab[2]))
+	{
+	//	ft_printf("\n  tab[1] :%d \n", ft_atoi(tab[1]));	
+	//	ft_printf("\n  line : %s known room :%d tab[1] :%d tab[2] :%d\n",str,is_known_room(tab[0], anthill), digit(tab[1]), digit(tab[2]));
 		return (0);
+	}
 	return (1);
 }
 
@@ -92,7 +96,7 @@ int		create_tab_room(t_anthill *anthill)
 
 	anthill->tab_room = (t_room*)malloc(sizeof(t_room) * anthill->nb_room);
 	if (!anthill->tab_room)
-		return (0);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), anthill->tab_room);
 	id_room = anthill->nb_room;
 	actual = anthill->l_room;

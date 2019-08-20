@@ -6,11 +6,11 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:06:40 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 10:11:59 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:43 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 /*
 ** Display error message
@@ -21,6 +21,16 @@ void	error_message(t_anthill *anthill, char *str)
 	free_gc(anthill->head_gar_c);
 	free(anthill);
 	ft_putstr(str);
+	exit(EXIT_FAILURE);
+}
+
+void	error_message_pars(t_anthill *anthill, char *str, char *line)
+{
+	free_gc(anthill->head_gar_c);
+	free(anthill);
+	ft_putstr(str);
+	free(line);
+	get_next_line(-2, &line);
 	exit(EXIT_FAILURE);
 }
 

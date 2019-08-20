@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:31:47 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 13:04:47 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:40 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 int	check_ant(char *line)
 {

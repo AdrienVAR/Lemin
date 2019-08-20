@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 10:47:36 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 10:42:46 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:42 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 /*
 ** Print each round of ants movements in the anthill.
@@ -24,7 +24,6 @@ void	print_round(t_anthill *anthill, t_graph *path, t_ant *tab_ant,
 	static	int	round = 0;
 
 	i = 0;
-	
 	while (i < anthill->nb_in)
 	{
 		if (tab_ant[i].is_in)
@@ -60,7 +59,6 @@ void	print_sol(t_anthill *anthill, t_graph *path)
 	i = -1;
 	while (++i < anthill->nb_path)
 	{
-		
 		path_len[i] = len_path(path->array[i].next);
 		path_nb_ant[i] = anthill->nb_op - (path_len[i] - 1);
 	}

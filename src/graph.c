@@ -6,12 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 13:55:43 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:36 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
-#include <stdio.h>
+#include "../includes/lem_in.h"
 
 /*
 ** Create a connection from src to a room.
@@ -25,7 +24,7 @@ t_connex	*new_connex(t_anthill *anthill, int dst)
 	t_connex	*connex;
 
 	if (!(connex = (t_connex*)malloc(sizeof(t_connex))))
-		return (NULL);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), connex);
 	connex->room_id = dst;
 	connex->value = 0;
@@ -45,11 +44,11 @@ t_graph		*create_graph(t_anthill *anthill, int nb_room)
 	int		i;
 
 	if (!(graph = (t_graph*)malloc(sizeof(t_graph))))
-		return (NULL);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), graph);
 	graph->nb_room = nb_room;
 	if (!(graph->array = (t_connex*)malloc(sizeof(t_connex) * (nb_room + 1))))
-		return (NULL);
+		error_message(anthill, "MALLOC ERROR\n");
 	garbage_collector(&(anthill->head_gar_c), graph->array);
 	i = 0;
 	while (i <= nb_room)

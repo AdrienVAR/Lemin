@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 14:24:09 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 14:57:12 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:12 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 /*
 ** Create an ant, assign her ID and her path. Is_in = 1 put her in the anthill.
@@ -59,12 +59,10 @@ void	move_ant(t_anthill *anthill, t_ant *ant, t_ant *tab_ant, int i)
 {
 	if (ant->connex->next)
 		ant->connex = ant->connex->next;
-	
 	if (ant->connex->room_id == anthill->id_end)
 	{
 		ant->is_in = 0;
 		anthill->nb_end++;
 	}
-	
 	print_ant(anthill, tab_ant, i + 1);
 }

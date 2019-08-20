@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 HEADER = -I ./libft.h
 NAME = libft.a
 OBJECTS = $(SOURCES:.c=.o)

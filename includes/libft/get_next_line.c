@@ -6,11 +6,25 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 14:35:56 by advardon          #+#    #+#             */
-/*   Updated: 2018/12/17 21:22:42 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:58:34 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int			free_static(int fd, int ret_value, char **str)
+{
+	if (fd == -2)
+	{
+		while (ret_value < 4867)
+		{
+			free(str[ret_value]);
+			ret_value++;
+		}
+		return (1);
+	}
+	return (0);
+}
 
 static char	*ft_strndup(const char *s1, size_t n)
 {
@@ -79,16 +93,8 @@ int			get_next_line(const int fd, char **line)
 	static char	*str[4867];
 
 	ret_value = 0;
-	if (fd == -2)
-	{
-		while(ret_value < 4867)
-		{
-			free(str[ret_value]);
-			ret_value++;
-		}
-		//free(line);
+	if (free_static(fd, ret_value, str))
 		return (1);
-	}
 	if (line == NULL || fd < 0 || fd > 4867 || BUFF_SIZE_GNL < 1)
 		return (-1);
 	if (str[fd])

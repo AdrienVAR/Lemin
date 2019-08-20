@@ -6,11 +6,11 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:41:23 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 10:59:00 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:32:03 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 int	main(void)
 {

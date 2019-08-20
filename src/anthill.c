@@ -6,11 +6,11 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:33:16 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 14:50:12 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:53:23 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lem_in.h"
 
 t_anthill	*init_anthill(void)
 {
@@ -19,7 +19,7 @@ t_anthill	*init_anthill(void)
 
 	head = ft_lstnew(NULL, 0);
 	if (!(anthill = (t_anthill*)malloc(sizeof(t_anthill))))
-		return (NULL);
+		error_message(anthill, "MALLOC ERROR\n");
 	anthill->nb_ant = 0;
 	anthill->nb_room = 0;
 	anthill->nb_in = 0;
@@ -27,6 +27,7 @@ t_anthill	*init_anthill(void)
 	anthill->id_end = -1;
 	anthill->nb_end = 0;
 	anthill->nb_path = 0;
+	anthill->nb_op = 10000000;
 	anthill->l_room = NULL;
 	anthill->round = 0;
 	anthill->head_gar_c = head;
