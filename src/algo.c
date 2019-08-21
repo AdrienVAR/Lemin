@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 17:53:00 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:38:14 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,7 @@ int		calc_nb_op(t_graph *path, int nb_ant, int nb_path)
 	return (nb_op);
 }
 
-/*
-** Entry point of the algo.
-** Implementation of a simplified Edmonds-Karp algorithm.
-*/
-
-void	algo(t_anthill *anthill)
+t_graph		*find_best_paths(t_anthill *anthill)
 {
 	t_graph		*path;
 	t_graph		*best_path;
@@ -151,7 +146,45 @@ void	algo(t_anthill *anthill)
 		else
 			break ;
 	}
+	return (best_path);
+}
+
+
+/*
+** Entry point of the algo.
+** Implementation of a simplified Edmonds-Karp algorithm.
+*/
+
+void	algo(t_anthill *anthill)
+{
+	t_graph		*best_path;
+
+	/*while (anthill->nb_ant > anthill->nb_path && bfs(anthill))
+	{
+		add_flow(anthill);
+		anthill->nb_path++;
+		reinit_graph(anthill->graph);
+		path = create_graph(anthill, anthill->nb_path);
+		fill_path(anthill, path, anthill->nb_path);
+		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) <
+		anthill->nb_op)
+		{
+			anthill->nb_op = calc_nb_op(path, anthill->nb_ant,
+			anthill->nb_path);
+			reinit_graph(anthill->graph);
+			best_path = create_graph(anthill, anthill->nb_path);
+			fill_path(anthill, best_path, anthill->nb_path);
+		}
+		else
+			break ;
+	}*/
+	best_path = find_best_paths(anthill);
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);
-	print_sol(anthill, best_path);
+	if (anthill->print_path == 0)
+		print_sol(anthill, best_path);
+	if (anthill->print_path == 1)
+		print_graph(anthill, best_path);
+	if (anthill->print_path == 2)
+		print_graph2(anthill, anthill->graph);
 }

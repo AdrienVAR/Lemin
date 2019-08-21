@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:06:40 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 17:53:43 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:47:04 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	error_message(t_anthill *anthill, char *str)
 	free_gc(anthill->head_gar_c);
 	free(anthill);
 	ft_putstr(str);
-	sleep(3);
 	exit(EXIT_FAILURE);
 }
 

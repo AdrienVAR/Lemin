@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 17:49:55 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:38:28 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_anthill
 	int					id_start;
 	int					id_end;
 	int					nb_in;
+	int 				print_path;
 	int					nb_end;
 	int					nb_path;
 	int					nb_op;
@@ -83,7 +84,7 @@ typedef	struct	s_ant
 /*
 *********************************ANTHILL***************************************
 */
-t_anthill		*init_anthill(void);
+t_anthill		*init_anthill(int i);
 void			print_anthill(t_anthill *anthill);
 
 /*
@@ -96,8 +97,8 @@ void			reinit_graph(t_graph *graph);
 int				add_edge(t_anthill *anthill, t_graph *graph, t_edge *edge);
 int				add_edge_side(t_anthill *anthill, t_graph *graph,
 				int src, int dst);
-void			print_graph(t_graph *graph);
-void			print_graph2(t_graph *graph);
+void			print_graph(t_anthill *anthill, t_graph *graph);
+void			print_graph2(t_anthill *anthill, t_graph *graph);
 /*
 **********************************ROOM*****************************************
 */
@@ -113,7 +114,7 @@ int				create_tab_room(t_anthill *anthill);
 */
 
 t_edge			*create_edge(t_anthill *anthill);
-t_room			*is_known_room_get(char *line, t_anthill *anthill);
+t_room			*is_known_room_get(char *line, t_anthill *anthill,int i);
 int				is_known_room(char *line, t_anthill *anthill);
 t_edge			*is_edge(char *line, t_anthill *anthill);
 
@@ -143,7 +144,7 @@ void			sort_path(t_graph *path, int nb_path);
 **********************************LEM_IN***************************************
 */
 
-void			lem_in(void);
+void			lem_in(int i);
 
 /*
 ***********************************PRINT_UTILS**********************************
@@ -181,6 +182,7 @@ void			print_round(t_anthill *anthill, t_graph *path, t_ant *tab_ant,
 /*
 ********************************PARSING_UTILS***********************************
 */
+int				is_integer(char *str);
 int				check_ant(char *line);
 int				digit(char *str);
 int				open_file(char *filename);

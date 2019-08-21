@@ -1,6 +1,6 @@
 NAME = lem-in
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -g -fsanitize=address -Wall -Wextra -Werror
 SRC_DIR = src/
 LIB_DIR = includes/libft/
 
@@ -20,6 +20,9 @@ SRC_FILES = main.c			\
 			print.c			\
 			garbage_collector.c	
 
+INC_FILES = $(shell find includes -regex ".\{1,200\}\.h" | xargs) \
+			$(shell find includes/libft -regex ".\{1,200\}\.h" | xargs)
+
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ = $(addprefix $(SRC_DIR), $(SRC_FILES:.c=.o))
@@ -28,19 +31,20 @@ OBJ = $(addprefix $(SRC_DIR), $(SRC_FILES:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) 
+$(NAME): $(OBJ)
 	make -C includes/libft/
 	$(CC) $(FLAGS) -Lincludes/libft -lft -o $@ $^
 
-%.o: %.c
+%.o: %.c $(INC_FILES)
 	$(CC) $(FLAGS) -I includes/libft -o $@ -c $<
+
 
 clean:
 	make -C includes/libft clean
-	/bin/rm -f $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
 	make -C includes/libft fclean
-	/bin/rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all

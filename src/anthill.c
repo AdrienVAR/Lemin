@@ -6,13 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:33:16 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 17:53:23 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:02:23 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-t_anthill	*init_anthill(void)
+t_anthill	*init_anthill(int i)
 {
 	t_anthill	*anthill;
 	t_list		*head;
@@ -26,8 +26,9 @@ t_anthill	*init_anthill(void)
 	anthill->id_start = -1;
 	anthill->id_end = -1;
 	anthill->nb_end = 0;
+	anthill->print_path = i;
 	anthill->nb_path = 0;
-	anthill->nb_op = 10000000;
+	anthill->nb_op = INT_MAX;
 	anthill->l_room = NULL;
 	anthill->round = 0;
 	anthill->head_gar_c = head;

@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 10:33:34 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/19 17:53:27 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:23:21 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,28 @@ t_edge		*create_edge(t_anthill *anthill)
 **If the room already exists, return his len_name
 */
 
-t_room		*is_known_room_get(char *line, t_anthill *anthill)
+t_room		*is_known_room_get(char *line, t_anthill *anthill, int i)
 {
 	t_room *actual;
 
 	actual = anthill->l_room;
-	while (actual)
+	if (i == 0)
 	{
-		if (!ft_strncmp(line, actual->name, actual->name_len))
-			return (actual);
-		actual = actual->next;
+		while (actual)
+		{
+			if (!ft_strncmp(line, actual->name, actual->name_len))
+				return (actual);
+			actual = actual->next;
+		}
+	}
+	if (i == 1)
+	{
+		while (actual)
+		{
+			if (!ft_strcmp(line, actual->name))
+				return (actual);
+			actual = actual->next;
+		}
 	}
 	return (NULL);
 }
@@ -67,14 +79,14 @@ t_edge		*is_edge(char *line, t_anthill *anthill)
 	t_edge	*edge;
 
 	edge = create_edge(anthill);
-	if (!(room = is_known_room_get(line, anthill)))
+	if (!(room = is_known_room_get(line, anthill, 0)))
 		return (NULL);
 	len = room->name_len;
 	edge->src = room->id;
 	if (line[len] != '-')
 		return (NULL);
 	len++;
-	if (!line[len] || !(room = is_known_room_get(line + len, anthill)))
+	if (!line[len] || !(room = is_known_room_get(line + len, anthill, 1)))
 		return (NULL);
 	edge->dst = room->id;
 	return (edge);
