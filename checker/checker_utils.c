@@ -6,25 +6,26 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:08:46 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/22 13:08:49 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/26 07:06:07 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
 
-t_room_name *new_room_name(t_checker *checker)
+t_room_name	*new_room_name(t_checker *checker)
 {
 	t_room_name		*new_room;
+
 	if (!(new_room = (t_room_name*)malloc(sizeof(t_room_name))))
 		garbage_collector(&(checker->head_gar_c), new_room);
 	new_room->room_name = NULL;
 	new_room->next = NULL;
-	return(new_room);
+	return (new_room);
 }
 
-t_checker    *init_checker(char *filename)
+t_checker	*init_checker(char *filename)
 {
-    t_checker		*checker;
+	t_checker		*checker;
 	t_list			*head;
 
 	head = ft_lstnew(NULL, 0);
@@ -35,16 +36,16 @@ t_checker    *init_checker(char *filename)
 	checker->operations = 0;
 	checker->diff = 0;
 	checker->room_end = NULL;
-    checker->head_room_op = new_room_name(checker);
+	checker->head_room_op = new_room_name(checker);
 	checker->head_gar_c = head;
-    return (checker);
+	return (checker);
 }
 
 /*
 ** Free previous mallocs. Display error message.
 */
 
-void	error_mess(t_checker *checker, char *str)
+void		error_mess(t_checker *checker, char *str)
 {
 	free_gc(checker->head_gar_c);
 	free(checker);
@@ -52,7 +53,7 @@ void	error_mess(t_checker *checker, char *str)
 	exit(EXIT_FAILURE);
 }
 
-int	open_file(char *filename)
+int			open_file(char *filename)
 {
 	int fd;
 
@@ -61,14 +62,18 @@ int	open_file(char *filename)
 	return (fd);
 }
 
-char	*ft_strndupend(const char *s1, size_t n)
+/*
+** Return a copy of the last n characters of the string.
+*/
+
+char		*ft_strndupend(t_checker *checker, const char *s1, size_t n)
 {
 	int		size;
 	char	*tmp;
 
 	size = ft_strlen(s1);
 	if (!(tmp = (char*)malloc(sizeof(char) * (n + 1))))
-		return (NULL);
+		error_mess(checker, "Error Malloc\n");
 	ft_memcpy(tmp, s1, n);
 	tmp[n] = '\0';
 	return (tmp);

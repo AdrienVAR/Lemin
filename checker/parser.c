@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 05:22:12 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/26 05:22:15 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/26 07:17:48 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static char	*add_end_room(t_checker *checker, char *str)
 	{
 		if (!(tab = ft_strsplit(str, ' ')))
 			error_mess(checker, "MALLOC ERROR\n");
-        add_tab_garbcoll(checker, (void **)tab);
+		add_tab_garbcoll(checker, (void **)tab);
 	}
 	return (tab[i]);
 }
 
-char	*read_map(t_checker *checker, char *line)
+char		*read_map(t_checker *checker, char *line)
 {
 	int		last_cmd;
 	int		cmd;
@@ -49,12 +49,12 @@ char	*read_map(t_checker *checker, char *line)
 	while ((checker->ret = get_next_line(checker->fd, &line)) > 0)
 	{
 		cmd = num_command(line);
-		if(last_cmd == 2 && cmd == 0)
+		if (last_cmd == 2 && cmd == 0)
 			checker->room_end = add_end_room(checker, line);
 		last_cmd = (cmd != 3) ? cmd : last_cmd;
 		if (line[0] == 'L')
 		{
-			if(checker->room_end == NULL)
+			if (checker->room_end == NULL)
 				error_mess(checker, "Error : No end room");
 			return (line);
 		}
@@ -63,19 +63,20 @@ char	*read_map(t_checker *checker, char *line)
 	return (0);
 }
 
-int	read_gen_map(t_checker *checker, char *line)
+int			read_gen_map(t_checker *checker, char *line)
 {
 	while ((checker->ret = get_next_line(checker->fd, &line)) > 0)
 	{
 		if (num_command(line) == 3)
-			if (!(ft_memcmp(line, "#Here is the number of lines required: ", 39)))
+			if (!(ft_memcmp(line,
+			"#Here is the number of lines required: ", 39)))
 			{
 				checker->diff = ft_atoi(line + 39);
-                free(line);
+				free(line);
 				return (1);
 			}
 		free(line);
 	}
-    free(line);
+	free(line);
 	return (0);
 }

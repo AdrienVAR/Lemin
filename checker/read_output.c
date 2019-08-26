@@ -6,14 +6,14 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 14:05:44 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/25 14:05:47 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/26 07:24:23 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
 
 /*
-** Check for each node if the room name was not previously recorded 
+** Check for each node if the room name was not previously recorded
 ** during this operation.
 */
 
@@ -21,20 +21,20 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
 {
 	t_room_name	*actual;
 
-    if (!(checker->head_room_op->next))
-    {
-        checker->head_room_op->next = new_node;
-        return ;
-    }
-    actual = checker->head_room_op;
-    while (actual->next)
+	if (!(checker->head_room_op->next))
 	{
-		if(ft_strcmp(actual->next->room_name, new_node->room_name))
-        	actual = actual->next;
+		checker->head_room_op->next = new_node;
+		return ;
+	}
+	actual = checker->head_room_op;
+	while (actual->next)
+	{
+		if (ft_strcmp(actual->next->room_name, new_node->room_name))
+			actual = actual->next;
 		else
 			error_mess(checker, "Error : two ants in the same room");
 	}
-    actual->next = new_node;
+	actual->next = new_node;
 }
 
 /*
@@ -45,20 +45,20 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
 void	cycle_detector(t_checker *checker, char *line, int i)
 {
 	t_room_name	*actual;
-	char 		*content;
-	int 		len;
-	int 		tmp;
+	char		*content;
+	int			len;
+	int			tmp;
 
 	tmp = i;
 	len = 0;
-	while(line[i] != ' ' && line[i])
+	while (line[i] != ' ' && line[i])
 	{
 		len++;
 		i++;
 	}
-	content = ft_strndupend(line + tmp, len);
+	content = ft_strndupend(checker, line + tmp, len);
 	garbage_collector(&(checker->head_gar_c), content);
-	if(ft_strcmp(content, checker->room_end))
+	if (ft_strcmp(content, checker->room_end))
 	{
 		actual = new_room_name(checker);
 		actual->room_name = content;
@@ -70,7 +70,7 @@ void	cycle_detector(t_checker *checker, char *line, int i)
 ** Record each room name in a chained list. Free the list once the line end.
 */
 
-void    check_room(t_checker *checker, char *line)
+void	check_room(t_checker *checker, char *line)
 {
 	char	**rooms;
 	int		i;
@@ -85,7 +85,6 @@ void    check_room(t_checker *checker, char *line)
 	{
 		while (rooms[i][pos] != '-' && rooms[i][pos])
 			pos++;
-
 		cycle_detector(checker, rooms[i], pos + 1);
 		i++;
 		pos = 0;

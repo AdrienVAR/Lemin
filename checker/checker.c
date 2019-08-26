@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 17:13:42 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/21 17:25:58 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/26 06:51:42 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	print_diff(t_checker *checker)
 	ft_putnbr(checker->operations - checker->diff);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	char	*line;
-	t_checker *checker;
+	char		*line;
+	t_checker	*checker;
 
 	if (argc == 1)
 		print_usage();
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 		checker->fd = open_file(argv[2]);
 		line = NULL;
 		if (!(read_gen_map(checker, line)))
-			error_mess(checker, "Error map generator: no number of lines required");
+			error_mess(checker, "Error map generator: no number of lines");
 		print_diff(checker);
 	}
 	get_next_line(-2, &line);
