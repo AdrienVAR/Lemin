@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argv;
+	(void)argv; ////
 	if (argc == 2)
 	{
 		if (!ft_strcmp(argv[1] ,"-path"))

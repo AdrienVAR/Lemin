@@ -12,101 +12,21 @@
 
 #include "../includes/checker.h"
 
-//recupérer la veleur de end pour exception su strcmp
-
-void	free_lst(t_room_name **head)
+void	print_usage(void)
 {
-    t_room_name           *node;
-    t_room_name           *next_node;
-
-	node = *head;
-	next_node = node->next;
-	node->next = NULL; //we reuse head, so put it to null after use
-    node = next_node;
-    while (node)
-    {
-       	next_node = node->next;
-        free(node->room_name);
-        free(node);
-        node = next_node;
-    }
-}
-
-static int	num_command(char *line)
-{
-	if (!(ft_strcmp(line, "##start")))
-		return (1);
-	else if (!(ft_strcmp(line, "##end")))
-		return (2);
-	else if (line[0] == '#')
-		return (3);
-	return (0);
-}
-
-char	*add_end_room(char *str)
-{
-	char	**tab;
-	int		i;
-
-	i = 0;
-	if (str[i] == 'L')
-		return (0);
-	else
-	{
-		if (!(tab = ft_strsplit(str, ' ')))
-			error_mess("MALLOC ERROR\n");
-		//garbage_collector(&(anthill->head_gar_c), tab);
-	}
-	/*while (tab[i])
-	{
-		garbage_collector(&(anthill->head_gar_c), tab[i]);
-		i++;
-	}*/
-	return (tab[i]);
-}
-
-char	*read_map(t_checker *checker, char *line)
-{
-	int		last_cmd;
-	int		cmd;
-
-	last_cmd = 0;
-	while ((checker->ret = get_next_line(checker->fd, &line)) > 0)
-	{
-		cmd = num_command(line);
-		if(last_cmd == 2 && cmd == 0)
-			checker->room_end = add_end_room(line);
-		last_cmd = (cmd != 3) ? cmd : last_cmd;
-		if (line[0] == 'L')
-		{
-			if(checker->room_end == NULL)
-				error_mess("Error : No end room");
-			return (line);
-		}
-		free(line);
-	}
-	return (0);
-}
-
-int	read_gen_map(t_checker *checker, char *line)
-{
-	while ((checker->ret = get_next_line(checker->fd, &line)) > 0)
-	{
-		if (num_command(line) == 3)
-			if (!(ft_memcmp(line, "#Here is the number of lines required: ", 39)))
-			{
-				checker->diff = ft_atoi(line + 39);
-				return (1);
-			}
-		free(line);
-	}
-	return (0);
+	ft_putstr("Checker:\n");
+	ft_putstr("- Check there are not more that one ant in each room\n");
+	ft_putstr("- Describe how many operations were necessary\n");
+	ft_putstr("- Print the difference between Lemin and generator\n");
+	ft_putstr("Usage: ./checker output.txt or ./checker output.txt ");
+	ft_putstr("map_generator.txt\n");
+	exit(EXIT_FAILURE);
 }
 
 void	print_diff(t_checker *checker)
 {
 	ft_putstr("Diff with generator :");
-	ft_putnbr(checker->diff - checker->operations);
+	ft_putnbr(checker->operations - checker->diff);
 }
 
 int main(int argc, char **argv)
@@ -115,24 +35,23 @@ int main(int argc, char **argv)
 	t_checker *checker;
 
 	if (argc == 1)
-	{
-		ft_putstr("Checker: Check if there are no more that one ant in each room\n");
-		ft_putstr("Describe how many operations were necessary\n");
-		ft_putstr("Usage: ./checker output.txt or ./checker output.txt map_generator.txt\n");
-	}
+		print_usage();
 	line = NULL;
 	checker = init_checker(argv[1]);
-	line = read_map(checker, line);
-	if(line == NULL)
-		return (0);
+	if (!(line = read_map(checker, line)))
+		error_mess(checker, "Map error");
 	read_output(checker, line);
 	if (argc == 3)
 	{
 		checker->fd = open_file(argv[2]);
 		line = NULL;
 		if (!(read_gen_map(checker, line)))
-			error_mess("Error map generator: no number of lines required");
+			error_mess(checker, "Error map generator: no number of lines required");
 		print_diff(checker);
 	}
+	get_next_line(-2, &line);
+	free_gc(checker->head_gar_c);
+	free(checker->head_room_op);
+	free(checker);
 	return (0);
 }

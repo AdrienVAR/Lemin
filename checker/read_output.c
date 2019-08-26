@@ -12,6 +12,11 @@
 
 #include "../includes/checker.h"
 
+/*
+** Check for each node if the room name was not previously recorded 
+** during this operation.
+*/
+
 void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
 {
 	t_room_name	*actual;
@@ -24,13 +29,18 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
     actual = checker->head_room_op;
     while (actual->next)
 	{
-		if(ft_strcmp(actual->next->room_name, new_node->room_name)) //compare content of each node
+		if(ft_strcmp(actual->next->room_name, new_node->room_name))
         	actual = actual->next;
 		else
-			error_mess("Error : two ants in the same room");
+			error_mess(checker, "Error : two ants in the same room");
 	}
     actual->next = new_node;
 }
+
+/*
+** Before recording a room in a chained list, check if the name is not already
+** recorded. End rooms are ignored, they can store multiple ants.
+*/
 
 void	cycle_detector(t_checker *checker, char *line, int i)
 {
@@ -41,52 +51,52 @@ void	cycle_detector(t_checker *checker, char *line, int i)
 
 	tmp = i;
 	len = 0;
-	while(line[i] != ' ' && line[i])//|| line[i] != '\n' no need \n, there is a space)
+	while(line[i] != ' ' && line[i])
 	{
 		len++;
 		i++;
 	}
-	//if (!(content = (char *)malloc(sizeof(char) * (len + 1))))
-	//	error_mess("ERROR MALLOC");
 	content = ft_strndupend(line + tmp, len);
-	if(ft_strcmp(content, checker->room_end)) //if other that 0, we add in list
+	garbage_collector(&(checker->head_gar_c), content);
+	if(ft_strcmp(content, checker->room_end))
 	{
-		actual = new_room_name();
+		actual = new_room_name(checker);
 		actual->room_name = content;
 		ft_lstadd_end(checker, actual);
 	}
 }
 
-void    check_room(t_checker *checker, char *line) //Faire un ft_strsplit plutot que manipuler la line.
+/*
+** Record each room name in a chained list. Free the list once the line end.
+*/
+
+void    check_room(t_checker *checker, char *line)
 {
-	int i;
-	int j;
-	int len;
+	char	**rooms;
+	int		i;
+	int		pos;
 
 	i = 0;
-	j = 0;
-	len = ft_strlen(line);
-	while(i < len)
+	pos = 0;
+	if (!(rooms = ft_strsplit(line, ' ')))
+		error_mess(checker, "MALLOC_ERROR\n");
+	add_tab_garbcoll(checker, (void **)rooms);
+	while (rooms[i])
 	{
-		while(line[i] != '-' && i < len)
-			i++;
-		while(line[i + j] != ' ' && (i + j) < len) 
-		{
-			i++;
-			/*if(line[i + j] == '-' && (i + j) < len)
-			{
-				i = i + j;
-				j = 0;
-			}*/
-			ft_putchar(line[i + j]);
-			cycle_detector(checker, line, i + j);
-			j++;
-		}
-		j = 0;
-		ft_putchar ('\n');
+		while (rooms[i][pos] != '-' && rooms[i][pos])
+			pos++;
+
+		cycle_detector(checker, rooms[i], pos + 1);
+		i++;
+		pos = 0;
 	}
 	free_lst(&(checker->head_room_op));
 }
+
+/*
+** Read Lemin output. Increment operation on each new line;
+** Check each room of each line to check if more than 1 ant per room.
+*/
 
 void	read_output(t_checker *checker, char *line)
 {

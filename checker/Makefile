@@ -1,13 +1,15 @@
 NAME = checker
 CC = gcc
-FLAGS = -g -fsanitize=address -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 SRC_DIR = ./
 LIB_DIR = ../includes/libft/
 
 
 SRC_FILES = checker.c \
 			checker_utils.c \
-			read_output.c
+			parser.c \
+			read_output.c \
+			gc_utils.c
 
 
 INC_FILES = $(shell find ../includes -regex ".\{1,200\}\.h" | xargs) \
