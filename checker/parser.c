@@ -63,6 +63,10 @@ char		*read_map(t_checker *checker, char *line)
 	return (0);
 }
 
+/*
+** Read the map from the generator in order to get the lines required.
+*/
+
 int			read_gen_map(t_checker *checker, char *line)
 {
 	while ((checker->ret = get_next_line(checker->fd, &line)) > 0)
@@ -77,6 +81,5 @@ int			read_gen_map(t_checker *checker, char *line)
 			}
 		free(line);
 	}
-	free(line);
 	return (0);
 }

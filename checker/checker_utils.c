@@ -49,6 +49,7 @@ void		error_mess(t_checker *checker, char *str)
 {
 	free_gc(checker->head_gar_c);
 	free(checker);
+	free(checker->head_room_op);
 	ft_putstr(str);
 	exit(EXIT_FAILURE);
 }

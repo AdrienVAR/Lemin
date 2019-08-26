@@ -47,7 +47,7 @@ t_room_name *new_room_name(t_checker *checker);
 t_checker	*init_checker(char *filename);
 void		error_mess(t_checker *checker, char *str);
 int			open_file(char *filename);
-char		*ft_strndupend(const char *s1, size_t n);
+char		*ft_strndupend(t_checker *checker, const char *s1, size_t n);
 
 /*
 ************************************PARSER*************************************
