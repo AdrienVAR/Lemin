@@ -25,13 +25,13 @@ void	free_lst(t_room_name **head)
 	node = *head;
 	next_node = node->next;
 	node->next = NULL;
-	node = next_node;
+	/*node = next_node;
 	while (node)
 	{
 		next_node = node->next;
 		free(node);
 		node = next_node;
-	}
+	}*/
 }
 
 /*
@@ -51,7 +51,6 @@ void	add_tab_garbcoll(t_checker *checker, void **tab)
 	}
 }
 
-//fix makefile to reuse functions from lemin
 void	garbage_collector(t_list **head, void *param)
 {
 	t_list	*new;
@@ -60,6 +59,11 @@ void	garbage_collector(t_list **head, void *param)
 	new->content = param;
 	ft_lstadd(head, new);
 }
+
+/*
+** Free each content (malloc) of the chained list.
+** Free each nod of the chaied list.
+*/
 
 void	free_gc(t_list *head)
 {

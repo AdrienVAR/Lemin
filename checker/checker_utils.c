@@ -17,7 +17,8 @@ t_room_name	*new_room_name(t_checker *checker)
 	t_room_name		*new_room;
 
 	if (!(new_room = (t_room_name*)malloc(sizeof(t_room_name))))
-		garbage_collector(&(checker->head_gar_c), new_room);
+		error_mess(checker, "MALLOC ERROR\n");
+	garbage_collector(&(checker->head_gar_c), new_room);
 	new_room->room_name = NULL;
 	new_room->next = NULL;
 	return (new_room);
@@ -30,14 +31,17 @@ t_checker	*init_checker(char *filename)
 
 	head = ft_lstnew(NULL, 0);
 	if (!(checker = (t_checker*)malloc(sizeof(t_checker))))
-		return (0);
+	{
+		ft_putstr("MALLOC ERROR\n");
+		exit(EXIT_FAILURE);
+	}
 	checker->fd = open_file(filename);
 	checker->ret = 0;
 	checker->operations = 0;
 	checker->diff = 0;
 	checker->room_end = NULL;
-	checker->head_room_op = new_room_name(checker);
 	checker->head_gar_c = head;
+	checker->head_room_op = new_room_name(checker);
 	return (checker);
 }
 
@@ -49,7 +53,6 @@ void		error_mess(t_checker *checker, char *str)
 {
 	free_gc(checker->head_gar_c);
 	free(checker);
-	free(checker->head_room_op);
 	ft_putstr(str);
 	exit(EXIT_FAILURE);
 }
@@ -74,8 +77,8 @@ char		*ft_strndupend(t_checker *checker, const char *s1, size_t n)
 
 	size = ft_strlen(s1);
 	if (!(tmp = (char*)malloc(sizeof(char) * (n + 1))))
-		error_mess(checker, "Error Malloc\n");
-	ft_memcpy(tmp, s1, n);
+		error_mess(checker, "MALLOC ERROR\n");
+	ft_memcpy(tmp, s1, n);// protege malloc
 	tmp[n] = '\0';
 	return (tmp);
 }

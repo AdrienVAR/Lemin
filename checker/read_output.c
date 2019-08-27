@@ -17,7 +17,7 @@
 ** during this operation.
 */
 
-void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
+void	ft_lstadd_end(t_checker *checker, t_room_name *new_node, char *line)
 {
 	t_room_name	*actual;
 
@@ -32,7 +32,7 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node)
 		if (ft_strcmp(actual->next->room_name, new_node->room_name))
 			actual = actual->next;
 		else
-			error_mess(checker, "Error : two ants in the same room");
+			error_mess_pars(checker, "Error : two ants in the same room", line);
 	}
 	actual->next = new_node;
 }
@@ -62,7 +62,7 @@ void	cycle_detector(t_checker *checker, char *line, int i)
 	{
 		actual = new_room_name(checker);
 		actual->room_name = content;
-		ft_lstadd_end(checker, actual);
+		ft_lstadd_end(checker, actual, line);
 	}
 }
 
@@ -79,7 +79,7 @@ void	check_room(t_checker *checker, char *line)
 	i = 0;
 	pos = 0;
 	if (!(rooms = ft_strsplit(line, ' ')))
-		error_mess(checker, "MALLOC_ERROR\n");
+		error_mess(checker, "MALLOC ERROR\n");
 	add_tab_garbcoll(checker, (void **)rooms);
 	while (rooms[i])
 	{

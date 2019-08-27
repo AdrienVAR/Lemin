@@ -38,20 +38,19 @@ int		main(int argc, char **argv)
 		print_usage();
 	line = NULL;
 	checker = init_checker(argv[1]);
-	if (!(line = read_map(checker, line)))
-		error_mess(checker, "Map error");
+	if(!(line = read_map(checker, line)))
+		error_mess_pars(checker, "Output error\n", line);
 	read_output(checker, line);
 	if (argc == 3)
 	{
 		checker->fd = open_file(argv[2]);
 		line = NULL;
 		if (!(read_gen_map(checker, line)))
-			error_mess(checker, "Error map generator: no number of lines");
+			error_mess_pars(checker, "Error map generator: no number of lines\n", line);
 		print_diff(checker);
 	}
 	get_next_line(-2, &line);
 	free_gc(checker->head_gar_c);
-	free(checker->head_room_op);
 	free(checker);
 	return (0);
 }

@@ -83,3 +83,16 @@ int			read_gen_map(t_checker *checker, char *line)
 	}
 	return (0);
 }
+
+/*
+** Free the static in GNL. Free previous mallocs. Display error message.
+*/
+
+void		error_mess_pars(t_checker *checker, char *str, char *line)
+{
+	get_next_line(-2, &line);
+	free_gc(checker->head_gar_c);
+	free(checker);
+	ft_putstr(str);
+	exit(EXIT_FAILURE);
+}

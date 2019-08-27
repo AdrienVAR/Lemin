@@ -55,6 +55,7 @@ char		*ft_strndupend(t_checker *checker, const char *s1, size_t n);
 
 char		*read_map(t_checker *checker, char *line);
 int			read_gen_map(t_checker *checker, char *line);
+void		error_mess_pars(t_checker *checker, char *str, char *line);
 
 /*
 *********************************READ_OUTPUT*************************************
