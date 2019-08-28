@@ -78,7 +78,7 @@ char		*ft_strndupend(t_checker *checker, const char *s1, size_t n)
 	size = ft_strlen(s1);
 	if (!(tmp = (char*)malloc(sizeof(char) * (n + 1))))
 		error_mess(checker, "MALLOC ERROR\n");
-	ft_memcpy(tmp, s1, n);// protege malloc
+	ft_memcpy(tmp, s1, n);
 	tmp[n] = '\0';
 	return (tmp);
 }

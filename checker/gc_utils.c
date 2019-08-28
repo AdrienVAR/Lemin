@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 05:35:13 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/26 07:11:38 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:58:14 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	free_lst(t_room_name **head)
 	node = *head;
 	next_node = node->next;
 	node->next = NULL;
-	/*node = next_node;
-	while (node)
-	{
-		next_node = node->next;
-		free(node);
-		node = next_node;
-	}*/
 }
 
 /*

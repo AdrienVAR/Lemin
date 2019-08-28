@@ -32,7 +32,10 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node, char *line)
 		if (ft_strcmp(actual->next->room_name, new_node->room_name))
 			actual = actual->next;
 		else
+		{
+			free(line);
 			error_mess_pars(checker, "Error : two ants in the same room", line);
+		}
 	}
 	actual->next = new_node;
 }
@@ -42,7 +45,7 @@ void	ft_lstadd_end(t_checker *checker, t_room_name *new_node, char *line)
 ** recorded. End rooms are ignored, they can store multiple ants.
 */
 
-void	cycle_detector(t_checker *checker, char *line, int i)
+void	cycle_detector(t_checker *checker, char *room, int i, char *line)
 {
 	t_room_name	*actual;
 	char		*content;
@@ -51,12 +54,12 @@ void	cycle_detector(t_checker *checker, char *line, int i)
 
 	tmp = i;
 	len = 0;
-	while (line[i] != ' ' && line[i])
+	while (room[i] != ' ' && room[i])
 	{
 		len++;
 		i++;
 	}
-	content = ft_strndupend(checker, line + tmp, len);
+	content = ft_strndupend(checker, room + tmp, len);
 	garbage_collector(&(checker->head_gar_c), content);
 	if (ft_strcmp(content, checker->room_end))
 	{
@@ -85,7 +88,7 @@ void	check_room(t_checker *checker, char *line)
 	{
 		while (rooms[i][pos] != '-' && rooms[i][pos])
 			pos++;
-		cycle_detector(checker, rooms[i], pos + 1);
+		cycle_detector(checker, rooms[i], pos + 1, line);
 		i++;
 		pos = 0;
 	}

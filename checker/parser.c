@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 05:22:12 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/26 07:17:48 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:57:28 by advardon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char		*read_map(t_checker *checker, char *line)
 		if (line[0] == 'L')
 		{
 			if (checker->room_end == NULL)
-				error_mess(checker, "Error : No end room");
+			{
+				free(line);
+				error_mess_pars(checker, "Error : No end room", line);
+			}
 			return (line);
 		}
 		free(line);

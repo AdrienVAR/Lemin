@@ -1,6 +1,6 @@
 NAME = lem-in
 CC = gcc
-FLAGS = -g -fsanitize=address -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 SRC_DIR = src/
 LIB_DIR = includes/libft/
 
@@ -34,17 +34,19 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	make -C includes/libft/
 	$(CC) $(FLAGS) -Lincludes/libft -lft -o $@ $^
+	make -C checker/
 
 %.o: %.c $(INC_FILES)
 	$(CC) $(FLAGS) -I includes/libft -o $@ -c $<
 
-
 clean:
 	make -C includes/libft clean
+	make -C checker/ clean
 	rm -f $(OBJ)
 
 fclean: clean
 	make -C includes/libft fclean
+	make -C checker/ fclean
 	rm -f $(NAME)
 
 re: fclean all
