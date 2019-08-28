@@ -6,13 +6,13 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:31:47 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/21 16:17:55 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 11:43:15 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int			is_integer(char *str)
+int	is_integer(char *str)
 {
 	int		len;
 	char	signe;
@@ -38,7 +38,6 @@ int			is_integer(char *str)
 			return (1);
 	}
 }
-
 
 int	check_ant(char *line)
 {

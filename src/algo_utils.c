@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 11:11:03 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/19 17:53:04 by advardon         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:00:49 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,26 @@ void	sort_path(t_graph *path, int nb_path)
 		}
 		i++;
 	}
+}
+
+/*
+** Return how many operations are necessary to move all the ants in this graph.
+** The formulaused is (nb of ant + lenght of all valid paths) / nb of paths.
+*/
+
+int		calc_nb_op(t_graph *path, int nb_ant, int nb_path)
+{
+	int nb_op;
+	int len_paths;
+	int i;
+
+	i = 0;
+	len_paths = 0;
+	while (i < nb_path)
+	{
+		len_paths += len_path(path->array[i].next);
+		i++;
+	}
+	nb_op = (nb_ant + len_paths) / nb_path;
+	return (nb_op);
 }
