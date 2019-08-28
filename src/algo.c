@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 11:51:34 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/21 16:38:14 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:02:43 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,29 +100,7 @@ void	fill_path(t_anthill *anthill, t_graph *path, int nb_path)
 	}
 }
 
-/*
-** Return how many operations are necessary to move all the ants in this graph.
-** The formulaused is (nb of ant + lenght of all valid paths) / nb of paths.
-*/
-
-int		calc_nb_op(t_graph *path, int nb_ant, int nb_path)
-{
-	int nb_op;
-	int len_paths;
-	int i;
-
-	i = 0;
-	len_paths = 0;
-	while (i < nb_path)
-	{
-		len_paths += len_path(path->array[i].next);
-		i++;
-	}
-	nb_op = (nb_ant + len_paths) / nb_path;
-	return (nb_op);
-}
-
-t_graph		*find_best_paths(t_anthill *anthill)
+t_graph	*find_best_paths(t_anthill *anthill)
 {
 	t_graph		*path;
 	t_graph		*best_path;
@@ -149,35 +127,16 @@ t_graph		*find_best_paths(t_anthill *anthill)
 	return (best_path);
 }
 
-
 /*
 ** Entry point of the algo.
 ** Implementation of a simplified Edmonds-Karp algorithm.
+** Selection of the print mode
 */
 
 void	algo(t_anthill *anthill)
 {
 	t_graph		*best_path;
 
-	/*while (anthill->nb_ant > anthill->nb_path && bfs(anthill))
-	{
-		add_flow(anthill);
-		anthill->nb_path++;
-		reinit_graph(anthill->graph);
-		path = create_graph(anthill, anthill->nb_path);
-		fill_path(anthill, path, anthill->nb_path);
-		if (calc_nb_op(path, anthill->nb_ant, anthill->nb_path) <
-		anthill->nb_op)
-		{
-			anthill->nb_op = calc_nb_op(path, anthill->nb_ant,
-			anthill->nb_path);
-			reinit_graph(anthill->graph);
-			best_path = create_graph(anthill, anthill->nb_path);
-			fill_path(anthill, best_path, anthill->nb_path);
-		}
-		else
-			break ;
-	}*/
 	best_path = find_best_paths(anthill);
 	anthill->nb_path = nb_paths(best_path);
 	sort_path(best_path, anthill->nb_path);

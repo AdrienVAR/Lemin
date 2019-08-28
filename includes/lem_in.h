@@ -6,7 +6,7 @@
 /*   By: advardon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:29:38 by advardon          #+#    #+#             */
-/*   Updated: 2019/08/21 16:38:28 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:08:11 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct	s_anthill
 	int					id_start;
 	int					id_end;
 	int					nb_in;
-	int 				print_path;
+	int					print_path;
 	int					nb_end;
 	int					nb_path;
 	int					nb_op;
@@ -86,6 +86,7 @@ typedef	struct	s_ant
 */
 t_anthill		*init_anthill(int i);
 void			print_anthill(t_anthill *anthill);
+void			create_tabroom_graph(t_anthill *anthill);
 
 /*
 *********************************GRAPH*****************************************
@@ -114,7 +115,7 @@ int				create_tab_room(t_anthill *anthill);
 */
 
 t_edge			*create_edge(t_anthill *anthill);
-t_room			*is_known_room_get(char *line, t_anthill *anthill,int i);
+t_room			*is_known_room_get(char *line, t_anthill *anthill, int i);
 int				is_known_room(char *line, t_anthill *anthill);
 t_edge			*is_edge(char *line, t_anthill *anthill);
 
@@ -139,6 +140,7 @@ t_room			*get_room(t_anthill *anthill, int id);
 int				len_path(t_connex *connex);
 int				nb_paths(t_graph *path);
 void			sort_path(t_graph *path, int nb_path);
+int				calc_nb_op(t_graph *path, int nb_ant, int nb_path);
 
 /*
 **********************************LEM_IN***************************************

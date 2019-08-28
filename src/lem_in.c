@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 11:51:03 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/21 16:28:59 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:06:20 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ void		read_and_parse_edge(int fd, char **line, t_anthill *anthill,
 {
 	t_edge	*edge;
 	int		ret;
-	int 	cmd;
-	while ((cmd =num_command(*line)) || (edge = is_edge(*line, anthill)))
+	int		cmd;
+
+	while (num_command(*line) || (edge = is_edge(*line, anthill)))
 	{
+		cmd = num_command(*line);
 		if (edge)
 		{
 			add_edge(anthill, anthill->graph, edge);
@@ -104,7 +106,7 @@ void		read_and_parse(int fd, t_anthill *anthill, t_buff *buff)
 		error_message_eof(anthill, "ERROR\n", line);
 	while (num_command(line))
 	{
-		fill_buff_str(buff,line);
+		fill_buff_str(buff, line);
 		free(line);
 		if (get_next_line(fd, &line) <= 0)
 			error_message_pars(anthill, "ERROR\n", line);
@@ -120,8 +122,7 @@ void		read_and_parse(int fd, t_anthill *anthill, t_buff *buff)
 	read_and_parse_room(fd, &line, anthill, buff);
 	if (!is_edge(line, anthill))
 		error_message_pars(anthill, "ERROR\n", line);
-	create_tab_room(anthill);
-	anthill->graph = create_graph(anthill, anthill->nb_room);
+	create_tabroom_graph(anthill);
 	read_and_parse_edge(fd, &line, anthill, buff);
 	get_next_line(-2, &line);
 }

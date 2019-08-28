@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 14:33:16 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/21 15:02:23 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:06:42 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,10 @@ void		print_anthill(t_anthill *anthill)
 		}
 		i++;
 	}
+}
+
+void		create_tabroom_graph(t_anthill *anthill)
+{
+	create_tab_room(anthill);
+	anthill->graph = create_graph(anthill, anthill->nb_room);
 }

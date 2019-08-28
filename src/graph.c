@@ -6,7 +6,7 @@
 /*   By: avanhers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:20 by avanhers          #+#    #+#             */
-/*   Updated: 2019/08/21 16:43:47 by avanhers         ###   ########.fr       */
+/*   Updated: 2019/08/28 11:35:16 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,54 +119,4 @@ int			add_edge_side(t_anthill *anthill, t_graph *graph, int src, int dst)
 		actual = actual->next;
 	actual->next = n_connex;
 	return (1);
-}
-
-void        print_graph(t_anthill *anthill, t_graph *graph)
-{
-    int i;
-    t_connex    *connex;
-    i = 0;
-    while (i < graph->nb_room)
-    {
-        
-        ft_putstr("Path");
-        ft_putnbr(i);
-        ft_putstr(" : (");
-		ft_putstr(anthill->tab_room[anthill->id_start].name);
-        connex = graph->array[i].next;
-        //ft_putstr(")  -->   (");
-        while (connex)
-        {
-            ft_putstr(")  -->   (");
-            ft_putstr(anthill->tab_room[connex->room_id].name);
-            //ft_putstr(" : ");
-            //ft_putnbr(connex->value);
-            connex = connex->next;
-        }
-        ft_putstr(")\n");
-        i++;
-    }
-}
-
-void        print_graph2(t_anthill *anthill, t_graph *graph)
-{
-    int i;
-    t_connex    *connex;
-    i = 0;
-    while (i < graph->nb_room)
-    {
-       	ft_putstr("(room : ");	
-		ft_putstr(anthill->tab_room[i].name);
-        connex = graph->array[i].next;
-        while (connex)
-        {
-            ft_putstr(")  -->   (");
-            ft_putstr(anthill->tab_room[connex->room_id].name);
-            //ft_putstr(" : ");
-            //ft_putnbr(connex->value);
-            connex = connex->next;
-        }
-        ft_putstr(")\n");
-        i++;
-    }
 }
